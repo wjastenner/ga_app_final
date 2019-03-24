@@ -364,7 +364,15 @@ function updateFaultDetails(faultNo) {
         data: json,
         success: function (rt) {
             var fault = JSON.parse(rt);
-            console.log(fault[0]);
+            fault = fault[0];
+            console.log(fault);
+            $('#uf4-faultno').text(fault.faultno);
+            $('#uf4-category').text(fault.category);
+            $('#uf4-datereported').text(fault.datereported);
+            $('#uf4-carriageno').text(fault.carriageno);
+            $('#uf4-seatno').text(fault.seatno);
+            $('#uf4-faultdesc').text(fault.faultdesc);
+            $('#uf4-img').attr('src', fault.img);
         },
         error: function () {
             console.log("error");
@@ -434,7 +442,7 @@ function filterFaults(filters) {
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='updateFaultDetails(5)'>"
+                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='updateFaultDetails(" + fault.faultno + ")'>"
                     + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
                     + "<h4>" + fault.faultdesc + " </h4>"
                     + "</a>";
@@ -845,7 +853,8 @@ function setFaultImage(event) {
     reader.onload = function (e) {
         addFaultDetails('img', e.target.result);
         $('#sumImg').attr('src', e.target.result);
-        console.log(e.target.result);
+        console.log("image uploaded");
+        //console.log(e.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -937,11 +946,13 @@ function reset() {
     $('#otherCategory').removeClass('show');
     $('#description').val('');
     $('#maxSeatNumber').empty('');
+    $('#seatNo').empty('');
     $('.section').scrollTop(0);
     $('.issue').removeClass('show');
     $('#imgUploadStatus').removeClass('glyphicon-checked');
     $('#imgUploadStatus').addClass('glyphicon-unchecked');
-    $('.addImageTitle').text('Add Image');
+    $('.addImageTitle').text('Add Photo');
+    $('#sumImg').attr('src', '');
 }
 
 function changeFontSize() {
