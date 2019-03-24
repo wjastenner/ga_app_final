@@ -1,0 +1,14 @@
+{
+  "name": "ga_app",
+  "version": "1.0.0",
+  "description": "GA Fault App",
+  "main": "index.js",
+  "scripts": {
+    "scss": "node-sass -w scss/ -o css/"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.11.0"
+  }
+}
