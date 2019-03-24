@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="public/css/main.css" />
+	<link rel="stylesheet" href="css/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="public/js/main.js"></script>
+	<script src="js/main.js"></script>
     <title>Document</title>
     <link rel='shortcut icon' type='image/x-icon' href='imgs/ga-flavicon.ico' />
 </head>
@@ -426,54 +428,211 @@
         </div>
 
         <!-- Update Fault Page 1
-                        Currently just contains return to main button
-            -->
-        <div class="section uf-1">
-            <div class="title">
-                <h4 class="stepTitle">Update a Fault</h4>
-                <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                </button>
+
+    -->
+            <div class="section uf-1">
+                <div class="title">
+                    <h4 class="stepTitle">Update Faults</h4>
+                    <button class="info" onclick=pageInfo()>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </button>
+                </div>
+                <div class="sectionArea large">
+                    <div class="content">
+                        <button class="optionBtn" value="View My Allocations" onclick="switchPages('uf-1', 'uf-2')">View My Allocations</button>
+
+                        <button class="optionBtn" value="View All Faults" onclick="switchPages('uf-1', 'uf-3a')">View All Faults</button>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button class="footerBtn" onclick="switchPages('uf-1', 'options')">
+                        Return to options
+                    </button>
+                </div>
             </div>
-            <div class="sectionArea large">
-                <div class="content">
-                    <h3>Filter By</h3>
-                    <h4>Carriage Number</h4>
-                    <input id="carriagenoFilter" type="text" placeholder="carriage number" />
-                    <h4>Fault Category</h4>
-                    <select size="1" id="categoryFilter">
-                        <option value="none"></option>
-                        <option value="wifi">WiFi</option>
-                        <option value="socket">Plug Socket</option>
-                        <option value="toilet">Toilet</option>
-                        <option value="displayPanel">Display Panel</option>
-                        <option value="HVAC">Heating/ Air Con</option>
-                        <option value="door">Door</option>
-                        <option value="window">Window</option>
-                        <option value="seat">Seat</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <h4>Status</h4>
-                    <select size="1" id="statusFilter">
-                        <option value="none"></option>
-                        <option value="R">Reported</option>
-                        <option value="I">In Progress</option>
-                        <option value="C">Complete</option>
-                    </select>
-                    <h4>Date Reported</h4>
-                    <input id="datereportedFilter" type="text" placeholder="YYYY-MM-DD" />
-                    <button onclick="setFilters()">Apply Filters</button>
-                    <div id="updateFaults">
+
+            <!-- Update Fault Page 2
+                Jasmine will be working on this bit
+    -->
+            <div class="section uf-2">
+                <div class="title">
+                    <h4 class="stepTitle">View My Allocations</h4>
+                    <button class="info" onclick=pageInfo()>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </button>
+                </div>
+                <div class="sectionArea large">
+                    <div class="content">
 
                     </div>
                 </div>
+                <div class="footer">
+                    <button class="footerBtn" onclick="switchPages('uf-2', 'uf-1')">
+                        Return to options
+                    </button>
+                </div>
             </div>
-            <div class="footer">
-                <button class="footerBtn" onclick="switchPages('uf-1', 'options')">
-                    Return to options
-                </button>
+
+            <!-- Update Fault Page 3a
+                Currently just contains return to main button
+    -->
+            <div class="section uf-3a">
+                <div class="title">
+                    <h4 class="stepTitle">View All Faults</h4>
+                    <button class="info" onclick=pageInfo()>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </button>
+                </div>
+                <div class="sectionArea large">
+                    <div class="content">
+                        <div class="setSearchFilters">
+                            <h3>Select Search Filters</h3>
+                            <div class="filters">
+                                <h4 class="filtCarNo">Carriage Number</h4>
+                                <h4 class="filtCat">Fault Category</h4>
+                                <input class="filtCarNo" id="carriagenoFilter" type="text" placeholder="carriage number" />
+                                <select size="1" id="categoryFilter" class="filtCat">
+                                    <option value="none"></option>
+                                    <option value="wifi">WiFi</option>
+                                    <option value="socket">Plug Socket</option>
+                                    <option value="toilet">Toilet</option>
+                                    <option value="displayPanel">Display Panel</option>
+                                    <option value="HVAC">Heating/ Air Con</option>
+                                    <option value="door">Door</option>
+                                    <option value="window">Window</option>
+                                    <option value="seat">Seat</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <h4 class="filtStat">Status</h4>
+                                <h4 class="filtDate">Date Reported</h4>
+                                <select size="1" class="filtStat" id="statusFilter">
+                                    <option value="none"></option>
+                                    <option value="R">Reported</option>
+                                    <option value="I">In Progress</option>
+                                    <option value="C">Complete</option>
+                                </select>
+                                <input class="filtDate" id="datereportedFilter" type="text" placeholder="YYYY-MM-DD" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer split">
+                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3a', 'uf-1')">
+                        Back
+                    </button>
+                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="switchPages('uf-3a', 'uf-3b'); setFilters()">
+                        Search
+                    </button>
+                </div>
             </div>
-        </div>
+
+            <div class="section uf-3b">
+                <div id="uf-3b-title" class="title">
+                    <div class="setSearchFilters">
+                        <button id="filtNavBut" onclick="filtNav()" value="open">Filters</button>
+                        <div id="filtToggle" class="filters hidden ">
+                            <h4 class="filtCarNo">Carriage Number</h4>
+                            <h4 class="filtCat">Fault Category</h4>
+                            <input class="filtCarNo" id="carriagenoRefilter" type="text" placeholder="carriage number" />
+                            <select size="1" id="categoryRefilter" class="filtCat">
+                                <option value="none"></option>
+                                <option value="wifi">WiFi</option>
+                                <option value="socket">Plug Socket</option>
+                                <option value="toilet">Toilet</option>
+                                <option value="displayPanel">Display Panel</option>
+                                <option value="HVAC">Heating/ Air Con</option>
+                                <option value="door">Door</option>
+                                <option value="window">Window</option>
+                                <option value="seat">Seat</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <h4 class="filtStat">Status</h4>
+                            <h4 class="filtDate">Date Reported</h4>
+                            <select size="1" class="filtStat" id="statusRefilter">
+                                <option value="none"></option>
+                                <option value="R">Reported</option>
+                                <option value="I">In Progress</option>
+                                <option value="C">Complete</option>
+                            </select>
+                            <input class="filtDate" id="datereportedRefilter" type="text" placeholder="YYYY-MM-DD" />
+                        </div>
+                    </div>
+			</div>
+                <div class="sectionArea large">
+                    <div id="updateFaults" class="content">
+                    </div>
+                </div>
+                <div class="footer split">
+                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3b', 'uf-1')">
+                        Back
+                    </button>
+                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="resetFilters()">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="section uf-4">
+                <div class="title">
+                    <h2>Allocate a fault</h2>
+                </div>
+
+                <div class="sectionArea large">
+                    <div class="content">
+
+                        <div class="item1">
+                            <div class="row summaryHeading">
+                                <div><h3>Fault: </h3></div>
+                                <div><p>12345</p></div>
+                            </div>
+                        </div>
+
+                        <div class="itemx">
+                            <div class="row">
+                                <div><h3>Category: </h3></div>
+                                <div><p>seat</p></div>
+
+                            </div>
+                            <div class="row">
+                                <div><h3>Date: </h3></div>
+                                <div>24/03/2019</div>
+                            </div>
+                        </div>
+                           
+                        <div class="item2">
+                            <div class="row">
+                                <div><h3>Carriage: </h3></div>
+                                <div>12435</div>
+                            </div>
+                            <div class="row">
+                                <div><h3>Seat: </h3></div>
+                                <div>12</div>
+                            </div>
+                        </div>
+
+                        <div class="item3">
+                            <div class="row">
+                                <h3> Description: </h3>
+                                <div>the chair is broke</div>
+                            </div>
+                        </div>
+
+                        <div class="item22">
+                            <img id="alloc-img" src="" alt="fuck off" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="footer split">
+                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
+                        Back
+                    </button>
+                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
+                        Allocate
+                    </button>
+                </div>
+            </div>
     </div>
 </body>
 

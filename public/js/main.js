@@ -322,23 +322,24 @@ function getUsersFaults() {
     });
 }
 
-function getFaultImage(faultNo, i) {
+function getFaultImage(faultNo, i){
     //console.log(faultNo);
     var json = JSON.stringify(faultNo);
     console.log(json);
     $.ajax({
-        url: host + "/get_fault_image",
+        url: host + "/get_fault",
         type: "POST",
         data: json,
         success: function (rt) {
-            var image = JSON.parse(rt);
-            var src = image[0].img;
-            $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='fault image' />");
+            var fault = JSON.parse(rt);
+            console.log(fault[0].img);
+            var src = fault[0].img;
+    $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='fault image' />");
         },
         error: function () {
             console.log("error");
         }
-    });
+    });    
 }
 // gets all faults reported by the user 
 // returns an array of objects with each fault as an object
@@ -353,6 +354,23 @@ function viewFaultDetails(i) {
     //    $('#detDes').text(fault.faultdesc);
     //    $('#detLoc').text(fault.location);
     //    switchPages('vf-1', 'vf-2');
+}
+
+function updateFaultDetails(faultNo) {
+    var json = JSON.stringify(faultNo);
+    $.ajax({
+        url: host + "/get_fault",
+        type: "POST",
+        data: json,
+        success: function (rt) {
+            var fault = JSON.parse(rt);
+            console.log(fault[0]);
+        },
+        error: function () {
+            console.log("error");
+        }
+    }); 
+    switchPages('uf-3b', 'uf-4');
 }
 
 function setFilters() {
@@ -373,6 +391,25 @@ function setFilters() {
     filterFaults(filters);
 }
 // stores all the filters set on the update fault page into local storage and calls filterFaults()
+
+function resetFilters() {
+    var filters = JSON.parse(localStorage.getItem('filters'));
+    for (var filter in filters) {
+        var value = $('#' + filter + 'Refilter').val();
+        console.log(value);
+        if (value == 'none' || value == "") {
+            filters[filter] = null;
+        }
+        else {
+            filters[filter] = value;
+        }
+
+    }
+    console.log(filters);
+    localStorage.setItem('filters', JSON.stringify(filters));
+    filterFaults(filters);
+    filtNav();
+}
 
 function filterFaults(filters) {
     var json = JSON.stringify(filters);
@@ -397,20 +434,46 @@ function filterFaults(filters) {
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var values = [fault.faultno, fault.category, fault.carriageno, fault.datereported, fault.status];
-                var string = "<h4>";
-                for (var value in values) {
-                    string += "<span> " + values[value] + " </span>"
-                }
-                string += "</h4>";
-                $("#updateFaults").append(string);
-                $("#updateFaults").append("<h5>" + fault.faultdesc + "</h5");
+                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='updateFaultDetails(5)'>"
+                    + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
+                    + "<h4>" + fault.faultdesc + " </h4>"
+                    + "</a>";
+                //console.log(str);
+                $('#updateFaults').append(str);
+                
             }
         },
         error: function () {
             console.log("error")
         }
     })
+}
+
+function filtNav() {
+    var toggle = $('#filtNavBut').val();
+    filtNavToggle(toggle);
+}
+
+function filtNavToggle(toggle) {
+    if (toggle === 'open') {
+        $('#filtNavBut').val('close');
+        setTimeout(function () {
+            $('#filtToggle').removeClass('hidden');
+        }, 0);
+
+        setTimeout(function () {
+            $('#filtToggle').addClass('fade'); 
+        }, 500);
+    } else {
+        setTimeout(function () {
+            $('#filtToggle').removeClass('fade');
+        }, 0);
+
+        setTimeout(function () {
+            $('#filtToggle').addClass('hidden');
+        }, 500);
+        $('#filtNavBut').val('open');
+    }
 }
 
 function typeNum(num) {
@@ -451,6 +514,8 @@ function typeNum(num) {
         console.log('seat number too large');
     }
 }
+
+
 
 // Called when the user selects any fault option button or when any change is made to the description panel. 
 // Removes show class from all fault options and adds a show class to the selected button (used to change the css).
@@ -962,4 +1027,63 @@ function openPopup(page) {
 
 function closePopup() {
     $('.popup').removeClass('show');
+}
+
+
+function changeFaultStatus() {
+    var data = new Object();
+    data.faultNo = 4;
+    data.status = 'I';
+    data.staffID = 123456;
+    var json = JSON.stringify(data);
+    $.ajax({
+        url: host + "/change_fault_status",
+        type: "POST",
+        data: json,
+        success: function (rt) {
+            console.log(rt);
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
+}
+
+function getAssignedFaults() {
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    var json = JSON.stringify(userDetails);
+    $.ajax({
+        url: host + '/get_assigned_faults',
+        type: 'POST',
+        data: json,
+        success: function (rt) {
+            console.log(rt);
+            var faults = JSON.parse(rt);
+            $("#assignedFaults").empty();
+            for (var key in faults) {
+                var fault = faults[key];
+                switch (fault.status) {
+                    case 'R':
+                        fault.status = "Reported";
+                        break;
+                    case 'I':
+                        fault.status = "In Progress";
+                        break;
+                    case 'C':
+                        fault.status = "Completed";
+                        break;
+                }
+                fault.datereported = fault.datereported.split('T')[0];
+                var str = "<a class='filters' id='" + fault.faultno + "' onclick='viewFaultDetails(" + fault.faultno + ")'>"
+                    + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
+                    + "<h4>" + fault.faultdesc + " </h4>"
+                    + "</a>";
+                $('#assignedFaults').append(str);
+
+            }
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
 }

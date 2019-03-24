@@ -9,7 +9,7 @@ body {
   height: 100%;
   min-width: 300px;
   margin: 0;
-  padding: 0;
+  padding: 0; 
   * {
     box-sizing: border-box;
   }
@@ -230,9 +230,23 @@ button {
   &.footless{
     grid-template-rows: 60px auto;
   }
+  
+  .setSearchFilters {
+        background-color: $tertiary_colour;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px; 
+
+        .filters {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-gap: 5px;
+        }
+    }
+  
 }
 
-.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .vf-1{
+.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .vf-1, .uf-1{
   .sectionArea{
     .content{
       display: grid;
@@ -710,5 +724,270 @@ h4{
       transform: translate3d(0, 0, 0);
     }  
   }
+}
+
+//bens stuff is below here
+
+.uf-1 {
+    .sectionArea {
+        .content {
+            grid-row-gap: 5px;
+            padding-bottom: 0px;
+
+            .optionBtn {
+                height: 70px;
+                max-width: 500px;
+
+                &:focus {
+                    background-color: darken($tertiary_colour, 30%);
+                }
+            }
+        }
+    }
+}
+
+.uf-3a {
+    .sectionArea {
+        .content {
+            padding-bottom: 0px;
+            grid-row-gap: 5px;
+            align-self: end;
+
+            .hidden {
+                display: none;
+            }
+        }
+    }
+}
+
+.uf-3b {
+    .title {
+        position: relative;
+        z-index: 1000;
+        display: grid;
+        grid-template-columns: auto;
+
+
+        .setSearchFilters {
+            border: solid;
+            border-color: black;
+        }
+
+        button {
+            color: black;
+        }
+
+        #filtToggle {
+            height: 200px;
+            transition: all 1s;
+            opacity: 0;
+
+            &.hidden {
+                //display: none;
+                height: 0px;
+                //align-items: center;
+            }
+
+            &.fade {
+                opacity: 1;
+            }
+        }
+    }
+
+    .sectionArea {
+        .content {
+            padding-bottom: 0px;
+            grid-row-gap: 5px;
+            align-self: end;
+
+            .filters {
+                display: block;
+                text-align: left;
+                margin: 10px;
+                padding: 10px;
+                border: none;
+                border-color: $tertiary_colour;
+                background-color: $tertiary_colour;
+                border-radius: 5px;
+                color: white;
+                //width: 100%;
+                &:active {
+                    background-color: darken($tertiary_colour, 10%);
+                }
+
+                #detImg {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.uf-4 {
+    .title {
+
+        h4 {
+        }
+    }
+
+    .sectionArea {
+        .content {
+            h3 {
+                margin: 0;
+            }
+
+            p {
+                margin: 0;
+            }
+
+            .item1 {
+                grid-template-areas: 'row''row''row';
+                margin: 30px;
+                text-align: left;
+
+                .summaryHeading {
+                    text-align: center;
+                    font-size: 30px;
+                }
+
+                .row {
+                    grid-area: row;
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                }
+            }
+
+            .itemx {
+                grid-template-areas: 'row''row''row';
+                margin: 30px;
+                text-align: left;
+
+                .row {
+                    grid-area: row;
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                }
+            }
+
+            .item2 {
+                grid-template-areas: 'row''row';
+                margin: 30px;
+                text-align: left;
+
+                .row {
+                    grid-area: row;
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                }
+            }
+
+            .item3 {
+                grid-template-areas: 'row';
+                margin: 30px;
+
+                .row {
+                    grid-area: row;
+
+                    div {
+                        display: inline-block;
+                    }
+                }
+            }
+            /*
+
+            .item1 {
+                grid-area: fault;
+                text-align: center;
+
+            }
+
+            .item11 {
+                grid-area: faultVal;
+                text-align: left;
+            }
+
+            .item12 {
+                grid-area: category;
+                text-align: center;
+            }
+
+            .item13 {
+                grid-area: categorVal;
+                text-align: left;
+            }
+
+            .item14 {
+                grid-area: dat;
+                text-align: center;
+                color: lightslategrey;
+            }
+
+            .item15 {
+                grid-area: status;
+                text-align: center;
+            }
+
+            .item16 {
+                grid-area: coach;
+                text-align: center;
+            }
+
+            .item17 {
+                grid-area: seat;
+                text-align: center;
+            }
+
+            .item18 {
+                grid-area: coachVal;
+                text-align: left;
+            }
+
+            .item19 {
+                grid-area: seatVal;
+                text-align: left;
+            }
+
+            .item20 {
+                grid-area: description;
+                text-align: left;
+            }
+
+            .item21 {
+                grid-area: descriptionVal;
+                text-align: left;
+            }
+
+            .itemdud {
+                grid-area: dud;
+            }
+
+            .item22 {
+                grid-area: image;
+            }
+
+            display: grid;
+            box-sizing: border-box;
+            grid-template-areas: 
+                'fault faultVal'
+                'category categorVal' 
+                'dat dud' 
+                'coach coachVal' 
+                'seat seatVal' 
+                'description description'
+                'image image';
+            grid-template-rows: auto;
+            grid-template-columns: 40% 59%;
+            grid-gap: 10px;
+            background-color: white;
+            padding: 10px;
+
+            div {
+                background-color: white;
+                //padding: 20px 0;
+                //font-size: 30px;
+            }*/
+        }
+    }
 }
 

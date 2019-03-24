@@ -209,3 +209,10 @@ RETURNS VOID AS
   'INSERT INTO fault(faultNo, carriageNo, category, location, faultDesc, staffID, img)
 	VALUES ((SELECT COALESCE(MAX(faultNo),0) FROM fault) + 1, $1, $2, $3, $4, $5, $6);'
 LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION assign_fault
+(INTEGER,INTEGER)
+RETURNS VOID AS
+  'UPDATE fault SET assignedTo = $2, status = ''I'' where faultNo = $1;'
+LANGUAGE SQL;
+--function to assign a fault to a member of staff and change the fault status to 'in progress'
