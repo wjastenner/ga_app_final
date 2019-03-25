@@ -233,47 +233,53 @@ app.post('/get_users_faults', async function (req, res) {
 });
 
 app.post('/filter_faults', async function (req, res) {
-	console.log(req.url);
-	console.log(req.method);
+    console.log(req.url);
+    console.log(req.method);
 
-	res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-	await connectDB();
+    await connectDB();
 
-	var sqlQuery;
+    var sqlQuery;
 
-	req.on('data', async function (data) {
-		var json = JSON.parse(data);
-		var result;
-		var filterCount = 0;
-		sqlStatement = "SELECT faultNo,carriageNo, category,location, faultDesc, dateReported, status FROM fault";
-		console.log(json);
-		for (var filter in json) {
-			if (json[filter]) {
-				if (filterCount == 0) {
-					sqlStatement += " WHERE";
-				}
-				else {
-					sqlStatement += ' AND';
-				}
-				sqlStatement += " " + filter + " = '" + json[filter] + "'";
-				filterCount += 1;
-			}
-		}
-		sqlStatement += " ORDER BY datereported DESC, timeReported DESC;";
-		console.log(sqlStatement);
-		try {
-			const sqlQueryResult = await client.query(sqlStatement);
-			result = sqlQueryResult.rows;
-			console.log(result);
-		}
-		catch (err) {
-			result = new Object();
-		}
-		var json_res = JSON.stringify(result);
-		res.end(json_res);
-	});
+    req.on('data', async function (data) {
+        var json = JSON.parse(data);
+        var filters = json.filters;
+        var offset = json.limit * json.count;
+        console.log(json.count);
+        console.log(json.limit);
+        console.log(offset);
+        var result;
+        var filterCount = 0;
+        sqlStatement = "SELECT faultNo,carriageNo, category,location, faultDesc, dateReported, status FROM fault";
+        console.log(json);
+        for (var filter in filters) {
+            if (filters[filter]) {
+                if (filterCount == 0) {
+                    sqlStatement += " WHERE";
+                }
+                else {
+                    sqlStatement += ' AND';
+                }
+                sqlStatement += " " + filter + " = '" + json[filter] + "'";
+                filterCount += 1;
+            }
+        }
+        sqlStatement += " ORDER BY datereported ASC, timeReported ASC LIMIT " + json.limit + " OFFSET " + offset + ";";
+        console.log(sqlStatement);
+        try {
+            const sqlQueryResult = await client.query(sqlStatement);
+            result = sqlQueryResult.rows;
+            console.log(result);
+        }
+        catch (err) {
+            result = new Object();
+        }
+        var json_res = JSON.stringify(result);
+        res.end(json_res);
+    });
 });
+
 
 app.post('/get_fault', async function (req, res) {
 	console.log(req.url);
@@ -349,7 +355,7 @@ app.post('/get_assigned_faults', async function (req, res) {
     req.on('data', async function (data) {
         var result;
         var json = JSON.parse(data);
-        sqlStatement = 'SELECT faultNo, carriageNo, category,location, faultDesc, dateReported FROM fault WHERE assignedTo =' + json.userID + ', ORDER BY dateReported ASC;';
+        sqlStatement = 'SELECT faultNo, carriageNo, category,location, faultDesc, dateReported FROM fault WHERE assignedTo =' + json.userID + ' ORDER BY dateReported ASC;';
         console.log(sqlStatement);
         try {
             const SQLQueryResult = await client.query(sqlStatement);

@@ -70,21 +70,21 @@ INSERT INTO fault(faultNo, carriageNo, category, faultDesc, staffID)
 	VALUES ((SELECT COALESCE(MAX(faultNo),0) FROM fault) + 1, 12345, 'wifi', 'wifi wont connect', 647392);
 -- some faults
 
-INSERT INTO station(stationCode, stationName)
-	VALUES ('NRW','Norwich');
-INSERT INTO station(stationCode, stationName)
-	VALUES ('SHM','Sheringham');
-INSERT INTO station(stationCode, stationName)
-	VALUES ('LST','London Liverpool Street');
-INSERT INTO station(stationCode, stationName)
-	VALUES ('CBG','Cambridge');
-INSERT INTO station(stationCode, stationName)
-	VALUES ('GYM','Great Yarmouth');
--- stations
+-- INSERT INTO station(stationCode, stationName)
+-- 	VALUES ('NRW','Norwich');
+-- INSERT INTO station(stationCode, stationName)
+-- 	VALUES ('SHM','Sheringham');
+-- INSERT INTO station(stationCode, stationName)
+-- 	VALUES ('LST','London Liverpool Street');
+-- INSERT INTO station(stationCode, stationName)
+-- 	VALUES ('CBG','Cambridge');
+-- INSERT INTO station(stationCode, stationName)
+-- 	VALUES ('GYM','Great Yarmouth');
+-- -- stations
 
-INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
-	VALUES (28397,'2019-03-07','8:30','10:30','NRW','LST');
-INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
-	VALUES (73829,'2019-03-07','7:10','8:10','SHM','NRW');
-INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
-	VALUES (12345,'2019-03-07','14:00','15:00','NRW','CBG');
+-- INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
+-- 	VALUES (28397,'2019-03-07','8:30','10:30','NRW','LST');
+-- INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
+-- 	VALUES (73829,'2019-03-07','7:10','8:10','SHM','NRW');
+-- INSERT INTO journey(carriageNo, journeyDate, departureTime, arrivalTime, departureStation, arrivalStation)
+-- 	VALUES (12345,'2019-03-07','14:00','15:00','NRW','CBG');

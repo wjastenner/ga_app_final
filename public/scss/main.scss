@@ -2,7 +2,13 @@ $primary_colour: rgb(215, 4, 40);
 $secondary_color: rgb(45, 113, 122);
 // $tertiary_colour: rgb(207, 200, 198);
 $tertiary_colour: rgb(185, 185, 185);
+//maybe change tertiary to  #949494?? @willstenner
 $gradient: linear-gradient(rgb(150, 0, 28), rgb(235, 0, 43));
+
+$statusRecieved : #f44242;
+$statusInProgress : #f47d41;
+$statusDone : #70c645;
+
 
 html,
 body {
@@ -165,77 +171,89 @@ button {
 }
 
 .section {
-  display: none;
-  height: calc(100% - 10px);
-  min-width: 300px;
-  margin: 10px;
-  grid-template-rows: 60px auto 80px;
-  .title{
-    display: grid;
-    grid-template-columns: auto 50px;
-    align-items: center;
-    .stepTitle{
-      margin: 0px;
-    }
-    .info{
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      font-size: 50px;
-      padding: 0px;
-      color: $primary_colour;
-      background-color: white;
-    }
-  }
-  .sectionArea{
-    overflow: scroll;
-    background-color: white;
-    display: grid;
-    width: 100%;
-    max-width: 600px;
-    justify-self: center;
-    z-index: 1;
-  }
-  .footer{
-    display: grid;
-    .footerBtn{
-      font-size: 1.5rem;
-      background-color: $primary_colour;
-      border-radius: 5px;
-      height: calc(100% - 10px);
-      width: 100%;
-      align-self: end;
-    }
-    &.split {
-    grid-template-columns: 35% 65%;
-      * {
-        justify-self: left;
-        width: calc(100% - 5px);
+    display: none;
+    height: calc(100% - 10px);
+    min-width: 300px;
+    margin: 10px;
+    grid-template-rows: 60px auto 80px;
+
+    .title {
+        display: grid;
+        grid-template-columns: auto 50px;
+        align-items: center;
+
+        .stepTitle {
+            margin: 0px;
         }
-      .rightBtn{
-        justify-self: end;
-      }
-      } 
-  }
-  
-  transition: all 0.5s;
-  opacity: 0;
-  
-  &.current {
-    display: grid;
-  }
-  &.fade {
-    opacity: 1;
-  }
-  &.footless{
-    grid-template-rows: 60px auto;
-  }
-  
-  .setSearchFilters {
+
+        .info {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 50px;
+            padding: 0px;
+            color: $primary_colour;
+            background-color: white;
+        }
+    }
+
+    .sectionArea {
+        overflow: scroll;
+        background-color: white;
+        display: grid;
+        width: 100%;
+        max-width: 600px;
+        justify-self: center;
+        z-index: 1;
+        align-self: end;
+    }
+
+    .footer {
+        display: grid;
+
+        .footerBtn {
+            font-size: 1.5rem;
+            background-color: $primary_colour;
+            border-radius: 5px;
+            height: calc(100% - 10px);
+            width: 100%;
+            align-self: end;
+        }
+
+        &.split {
+            grid-template-columns: 35% 65%;
+
+            * {
+                justify-self: left;
+                width: calc(100% - 5px);
+            }
+
+            .rightBtn {
+                justify-self: end;
+            }
+        }
+    }
+
+    transition: all 0.5s;
+    opacity: 0;
+
+    &.current {
+        display: grid;
+    }
+
+    &.fade {
+        opacity: 1;
+    }
+
+    &.footless {
+        grid-template-rows: 60px auto;
+    }
+
+    .setSearchFilters {
         background-color: $tertiary_colour;
         border-radius: 5px;
         padding: 10px;
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
 
         .filters {
             display: grid;
@@ -243,10 +261,59 @@ button {
             grid-gap: 5px;
         }
     }
-  
+
+    .filters {
+        display: grid;
+        grid-template-columns: 60% 10% 30%;
+        grid-template-areas: 'h3a blob status' 'h4a blob status';
+        text-align: left;
+        margin: 10px;
+        padding: 10px;
+        border: none;
+        border-color: $tertiary_colour;
+        background-color: $tertiary_colour;
+        border-radius: 5px;
+        color: white;
+        //width: 100%;
+        &:active {
+            background-color: darken($tertiary_colour, 10%);
+        }
+
+        #detImg {
+            height: 100%;
+            width: 100%;
+        }
+
+        .h3 {
+            text-align: left;
+            grid-area: h3a;
+        }
+
+        .h4 {
+            text-align: left;
+            grid-area: h4a;
+        }
+
+        .statusBlob {
+            float: right;
+            grid-area: blob;
+            height: 30px;
+            width: 30px;
+            border: solid;
+            border-color: $statusRecieved;
+            background-color: $statusRecieved;
+            border-radius: 50%;
+        }
+
+        .statusText{
+            grid-area: status;
+            text-align: left;
+            //justify-content: center;
+        }
+    }
 }
 
-.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .vf-1, .uf-1{
+.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .uf-1{
   .sectionArea{
     .content{
       display: grid;

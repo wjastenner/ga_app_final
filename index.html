@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="public/css/main.css" />
-	<link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="public/js/main.js"></script>
-	<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
     <title>Document</title>
     <link rel='shortcut icon' type='image/x-icon' href='imgs/ga-flavicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='public/imgs/ga-flavicon.ico' />
 </head>
 
 <body>
@@ -21,7 +22,8 @@
             <div class="btn-line"></div>
             <div class="btn-line"></div>
         </button>
-        <img src="public/imgs/galogo_xs.jpg" alt="ga">
+        <!--<img src="public/imgs/galogo_xs.jpg" alt="ga"> -->
+        <img src="imgs/galogo_xs.jpg" alt="ga">
     </header>
 
     <div class="sideNav">
@@ -66,9 +68,10 @@
                 <div class="content">
                     <h4>To report, track and update faults please use your staff ID to login below.</h4>
                     <input id='idInputBox' type="text" name="staffID" placeholder="Enter your staff ID here"
-                        maxlength=6 />
+                           maxlength=6 />
                     <div id="invalidStaffId" class="issue">
-                        <h5><span class="glyphicon glyphicon-exclamation-sign"></span> Please enter a valid staff ID
+                        <h5>
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> Please enter a valid staff ID
                         </h5>
                     </div>
                     <a href="#" id="cantFindID">Can't remember your staff ID?</a>
@@ -86,7 +89,8 @@
             <div class="title">
                 <h4 class="stepTitle">Staff Login</h4>
                 <button class="info" onclick="">
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea small">
                 <div class="content">
@@ -112,37 +116,46 @@
             </div>
             <div class="sectionArea small">
                 <div class="content">
-                    <button class="optionBtn" value="Report a Fault" onclick="switchPages('options', 'rf-1')">Report a
-                        Fault</button>
+                    <button class="optionBtn" value="Report a Fault" onclick="switchPages('options', 'rf-1')">
+                        Report a
+                        Fault
+                    </button>
 
                     <button class="optionBtn" value="View a Fault"
-                        onclick="switchPages('options', 'vf-1'); getUsersFaults();">View a
-                        Fault</button>
+                            onclick="switchPages('options', 'vf-1'); getUsersFaults();">
+                        View a
+                        Fault
+                    </button>
 
                     <button class="optionBtn" value="Update a Fault"
-                        onclick="switchPages('options', 'uf-1'); setFilters();">Update a
-                        Fault</button>
+                            onclick="switchPages('options', 'uf-1'); setFilters();">
+                        Update a
+                        Fault
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Report Fault Page 1 
-                        Enter carriage Number. If they dont know it they can choose 
-                        to enter different details about the train to locate it. 
-            -->
+        <!-- Report Fault Page 1
+                Enter carriage Number. If they dont know it they can choose
+                to enter different details about the train to locate it.
+    -->
         <div class="section rf-1">
             <div class="title">
                 <h4 class="stepTitle">Step 1/5 - Enter Carriage Number</h4>
                 <button class="info" onclick="openPopup('rf-1')">
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
                     <input type="text" name="CarriageNumber" placeholder="Enter carriage number here" id="carNum"
-                        maxlength=6 />
+                           maxlength=6 />
                     <div id="invalidCarriageId" class="issue">
-                        <h5><span class="glyphicon glyphicon-exclamation-sign"></span> Please enter a valid carriage
-                            number</h5>
+                        <h5>
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> Please enter a valid carriage
+                            number
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -156,15 +169,16 @@
             </div>
         </div>
 
-        <!-- Report Fault Page 2 
-                        Categorise the fault. User chooses from a range of possible categories.
-                        If none a suitable, they can choose other.
-            -->
+        <!-- Report Fault Page 2
+                Categorise the fault. User chooses from a range of possible categories.
+                If none a suitable, they can choose other.
+    -->
         <div class="section rf-2">
             <div class="title">
                 <h4 class="stepTitle">Step 2/5 - Choose a category</h4>
                 <button class="info" onclick="openPopup('rf-2')">
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea rf-2SectionArea large">
                 <div class="content">
@@ -176,8 +190,10 @@
 
                         <button class="faultOption" id="toilet" onclick="selectFault('toilet')">Toilet</button>
 
-                        <button class="faultOption" id="displayPanel" onclick="selectFault('displayPanel')">Display
-                            Panel</button>
+                        <button class="faultOption" id="displayPanel" onclick="selectFault('displayPanel')">
+                            Display
+                            Panel
+                        </button>
 
                         <button class="faultOption" id="HVAC" onclick="selectFault('HVAC')">Heating/Air Con</button>
 
@@ -192,9 +208,10 @@
                     </div>
                     <div class="textarea" id="otherCategory">
                         <textarea id="otherCategoryTxt" name="" cols="" rows="2" maxlength=50
-                            placeholder="Please categorise the fault before continuing here..."></textarea>
-                        <h5 class="textareaCounter" id="otherCatCounter">Characters remaining: <span
-                                id="charsRemainingCat">50</span></h5>
+                                  placeholder="Please categorise the fault before continuing here..."></textarea>
+                        <h5 class="textareaCounter" id="otherCatCounter">
+                            Characters remaining: <span id="charsRemainingCat">50</span>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -209,35 +226,43 @@
         </div>
 
         <!-- Report Fault Page 3
-                        User gives more information about the fault. This stage is optional 
-                        Can add a brief textual input or select from some common suggestions
-                        Or can add an image to the report which can be either taken on the spot
-                        or added from photo library. 
-            -->
+                User gives more information about the fault. This stage is optional
+                Can add a brief textual input or select from some common suggestions
+                Or can add an image to the report which can be either taken on the spot
+                or added from photo library.
+    -->
         <div class="section rf-3">
             <div class="title">
                 <h4 class="stepTitle">Step 3/5 - Describe the fault</h4>
                 <button class="info" onclick="openPopup('rf-3')">
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
                     <div id="addDescription" class="additionalDescription show">
-                        <h4 class='stepDescription' id="rf-3StepDescription">Please add a short description of the fault
+                        <h4 class='stepDescription' id="rf-3StepDescription">
+                            Please add a short description of the fault
                             by
                             typing in the text field or pressing one of the common faults.
                         </h4>
                         <div class="example_faults">
                             <button id="example_1" class="example_fault"
-                                onclick="exampleDescription('example_1')">Example 1</button>
+                                    onclick="exampleDescription('example_1')">
+                                Example 1
+                            </button>
                             <button id="example_2" class="example_fault"
-                                onclick="exampleDescription('example_2')">Example 2</button>
+                                    onclick="exampleDescription('example_2')">
+                                Example 2
+                            </button>
                             <button id="example_3" class="example_fault"
-                                onclick="exampleDescription('example_3')">Example 3</button>
+                                    onclick="exampleDescription('example_3')">
+                                Example 3
+                            </button>
                         </div>
                         <div class="textarea">
                             <textarea id="description" name="" cols="" rows="4" maxlength=300
-                                placeholder="Add or change your description at any point by pressing here..."></textarea>
+                                      placeholder="Add or change your description at any point by pressing here..."></textarea>
                             <h5 class="textareaCounter">Characters remaining: <span id=charsRemainingDes>300</span></h5>
                         </div>
                     </div>
@@ -267,31 +292,37 @@
             </div>
         </div>
 
-        <!-- Report Fault Page 4 
-                        This page asks user to further identify where the fault is. Different page loads
-                        depending on the type of the carriage/type of fault. If it has seat numbers then the user has to 
-                        select the seat number closest to the fault or select the section of the train closest
-                        to the fault.
-            -->
+        <!-- Report Fault Page 4
+                This page asks user to further identify where the fault is. Different page loads
+                depending on the type of the carriage/type of fault. If it has seat numbers then the user has to
+                select the seat number closest to the fault or select the section of the train closest
+                to the fault.
+    -->
         <div class="section rf-4">
             <div class="title">
                 <h4 class="stepTitle">Step 4/5 - Locate the fault</h4>
                 <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
                     <div class="faultLocator seats show" id="seats">
-                        <h4 class="stepDescription">Please select the closest seat to the fault using the number
-                            pad below.</h4>
+                        <h4 class="stepDescription">
+                            Please select the closest seat to the fault using the number
+                            pad below.
+                        </h4>
                         <div class="seatInfo">
                             <h4>Seat's on this carriage: <span id='maxSeatNo'>50</span></h4>
                             <h4>Selected Seat Number: <span id="seatNo"></span></h4>
                         </div>
                         <div id="invalidSeatNo" class="issue">
-                            <h5><span class="glyphicon glyphicon-exclamation-sign"></span><span
-                                    id="seatNoIssueMsg">Please
-                                    enter a valid seat number</span></h5>
+                            <h5>
+                                <span class="glyphicon glyphicon-exclamation-sign"></span><span id="seatNoIssueMsg">
+                                    Please
+                                    enter a valid seat number
+                                </span>
+                            </h5>
                         </div>
                         <div class="numberPad">
                             <button class="numberPadBtn" onclick="typeNum('1')">1</button>
@@ -329,14 +360,15 @@
         </div>
 
         <!-- Report Fault Page 5
-                        This page provides a summary of the fault before allowing them to submit it. 
-            -->
+                This page provides a summary of the fault before allowing them to submit it.
+    -->
 
         <div class="section rf-5">
             <div class="title">
                 <h4 class="stepTitle">Step 5/5 - Fault Summary</h4>
                 <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
@@ -364,14 +396,15 @@
         </div>
 
         <!-- Report Fault Page 6
-                        Confirmation page providing the user with confirmation their fault has been reported or
-                        if it was unsuccessful then further details will be provided. 
-            -->
+                Confirmation page providing the user with confirmation their fault has been reported or
+                if it was unsuccessful then further details will be provided.
+    -->
         <div class="section rf-6">
             <div class="title">
                 <h4 class="stepTitle">Report Submitted</h4>
                 <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i></button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
@@ -386,8 +419,8 @@
         </div>
 
         <!-- View Fault Page 1
-                    Loads faults reported by the current logged in user.
-            -->
+            Loads faults reported by the current logged in user.
+    -->
         <div class="section vf-1">
             <div class="title">
                 <h4 class="stepTitle">Fault's You've Reported</h4>
@@ -401,27 +434,7 @@
                 </div>
             </div>
             <div class="footer">
-                <button class="footerBtn" onclick="switchPages('vf-1', 'options')">
-                    Back
-                </button>
-            </div>
-        </div>
-
-        <!-- View Fault Page 2
-                    view further details about the selected fault. 
-            -->
-        <div class="section vf-2">
-            <div class="sectionArea large">
-                <h3>View Fault Details</h3>
-                <h4>Carriage: <span id="detCarNo" class="sumPageInfo"></span></h4>
-                <h4>Category: <span id="detCat" class="sumPageInfo"></span></h4>
-                <h4>Description: <span id="detDes" class="sumPageInfo"></span></h4>
-                <h4>Location: <span id="detLoc" class="sumPageInfo"></span></h4>
-
-                <img id="sumImg" src="" alt="" />
-            </div>
-            <div class="footer">
-                <button onclick="switchPages('vf-2', 'vf-1')">
+                <button class="footerBtn" onclick="back('vf-1')">
                     Back
                 </button>
             </div>
@@ -430,111 +443,89 @@
         <!-- Update Fault Page 1
 
     -->
-            <div class="section uf-1">
-                <div class="title">
-                    <h4 class="stepTitle">Update Faults</h4>
-                    <button class="info" onclick=pageInfo()>
-                        <i class="glyphicon glyphicon-info-sign"></i>
-                    </button>
-                </div>
-                <div class="sectionArea large">
-                    <div class="content">
-                        <button class="optionBtn" value="View My Allocations" onclick="switchPages('uf-1', 'uf-2')">View My Allocations</button>
+        <div class="section uf-1">
+            <div class="title">
+                <h4 class="stepTitle">Update Faults</h4>
+                <button class="info" onclick=pageInfo()>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
+            </div>
+            <div class="sectionArea large">
+                <div class="content">
+                    <button class="optionBtn" value="View My Allocations" onclick="getAssignedFaults()">View My Allocations</button>
 
-                        <button class="optionBtn" value="View All Faults" onclick="switchPages('uf-1', 'uf-3a')">View All Faults</button>
-                    </div>
-                </div>
-                <div class="footer">
-                    <button class="footerBtn" onclick="switchPages('uf-1', 'options')">
-                        Return to options
-                    </button>
+                    <button class="optionBtn" value="View All Faults" onclick="switchPages('uf-1', 'uf-3a')">View All Faults</button>
                 </div>
             </div>
+            <div class="footer">
+                <button class="footerBtn" onclick="switchPages('uf-1', 'options')">
+                    Return to options
+                </button>
+            </div>
+        </div>
 
-            <!-- Update Fault Page 2
-                Jasmine will be working on this bit
+        <!-- Update Fault Page 2
     -->
-            <div class="section uf-2">
-                <div class="title">
-                    <h4 class="stepTitle">View My Allocations</h4>
-                    <button class="info" onclick=pageInfo()>
-                        <i class="glyphicon glyphicon-info-sign"></i>
-                    </button>
-                </div>
-                <div class="sectionArea large">
-                    <div class="content">
+        <div class="section uf-2">
+            <div class="title">
+                <h4 class="stepTitle">View My Allocations</h4>
+                <button class="info" onclick=pageInfo()>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
+            </div>
+            <div class="sectionArea large">
+                <div id="assignedFaults" class="content">
 
-                    </div>
-                </div>
-                <div class="footer">
-                    <button class="footerBtn" onclick="switchPages('uf-2', 'uf-1')">
-                        Return to options
-                    </button>
                 </div>
             </div>
+            <div class="footer">
+                <button class="footerBtn" onclick="switchPages('uf-2', 'uf-1')">
+                    Return to options
+                </button>
+            </div>
+        </div>
 
-            <!-- Update Fault Page 3a
+        <!-- Update Fault Page 2a
+              
+    -->
+        <div class="section uf-2a">
+            <div class="title">
+                <h4 class="stepTitle">Update Fault</h4>
+                <button class="info" onclick=pageInfo()>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
+            </div>
+            <div class="sectionArea large">
+                <div id="assignedFaults" class="content">
+                    modified summary page to go here.
+                </div>
+            </div>
+            <div class="footer">
+                <button class="footerBtn" onclick="switchPages('uf-2a', 'uf-2')">
+                    Return to options
+                </button>
+            </div>
+        </div>
+
+        <!-- Update Fault Page 3a
                 Currently just contains return to main button
     -->
-            <div class="section uf-3a">
-                <div class="title">
-                    <h4 class="stepTitle">View All Faults</h4>
-                    <button class="info" onclick=pageInfo()>
-                        <i class="glyphicon glyphicon-info-sign"></i>
-                    </button>
-                </div>
-                <div class="sectionArea large">
-                    <div class="content">
-                        <div class="setSearchFilters">
-                            <h3>Select Search Filters</h3>
-                            <div class="filters">
-                                <h4 class="filtCarNo">Carriage Number</h4>
-                                <h4 class="filtCat">Fault Category</h4>
-                                <input class="filtCarNo" id="carriagenoFilter" type="text" placeholder="carriage number" />
-                                <select size="1" id="categoryFilter" class="filtCat">
-                                    <option value="none"></option>
-                                    <option value="wifi">WiFi</option>
-                                    <option value="socket">Plug Socket</option>
-                                    <option value="toilet">Toilet</option>
-                                    <option value="displayPanel">Display Panel</option>
-                                    <option value="HVAC">Heating/ Air Con</option>
-                                    <option value="door">Door</option>
-                                    <option value="window">Window</option>
-                                    <option value="seat">Seat</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <h4 class="filtStat">Status</h4>
-                                <h4 class="filtDate">Date Reported</h4>
-                                <select size="1" class="filtStat" id="statusFilter">
-                                    <option value="none"></option>
-                                    <option value="R">Reported</option>
-                                    <option value="I">In Progress</option>
-                                    <option value="C">Complete</option>
-                                </select>
-                                <input class="filtDate" id="datereportedFilter" type="text" placeholder="YYYY-MM-DD" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer split">
-                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3a', 'uf-1')">
-                        Back
-                    </button>
-                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="switchPages('uf-3a', 'uf-3b'); setFilters()">
-                        Search
-                    </button>
-                </div>
+        <div class="section uf-3a">
+            <div class="title">
+                <h4 class="stepTitle">View All Faults</h4>
+                <button class="info" onclick=pageInfo()>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </button>
             </div>
-
-            <div class="section uf-3b">
-                <div id="uf-3b-title" class="title">
+            <div class="sectionArea large">
+                <div class="content">
                     <div class="setSearchFilters">
-                        <button id="filtNavBut" onclick="filtNav()" value="open">Filters</button>
-                        <div id="filtToggle" class="filters hidden ">
+                        <h3>Select Search Filters</h3>
+                        <div class="filters">
                             <h4 class="filtCarNo">Carriage Number</h4>
                             <h4 class="filtCat">Fault Category</h4>
-                            <input class="filtCarNo" id="carriagenoRefilter" type="text" placeholder="carriage number" />
-                            <select size="1" id="categoryRefilter" class="filtCat">
+                            <input class="filtCarNo" id="carriagenoFilter" type="text" placeholder="carriage number" />
+                            <select size="1" id="categoryFilter" class="filtCat">
                                 <option value="none"></option>
                                 <option value="wifi">WiFi</option>
                                 <option value="socket">Plug Socket</option>
@@ -548,91 +539,134 @@
                             </select>
                             <h4 class="filtStat">Status</h4>
                             <h4 class="filtDate">Date Reported</h4>
-                            <select size="1" class="filtStat" id="statusRefilter">
+                            <select size="1" class="filtStat" id="statusFilter">
                                 <option value="none"></option>
                                 <option value="R">Reported</option>
                                 <option value="I">In Progress</option>
                                 <option value="C">Complete</option>
                             </select>
-                            <input class="filtDate" id="datereportedRefilter" type="text" placeholder="YYYY-MM-DD" />
+                            <input class="filtDate" id="datereportedFilter" type="text" placeholder="YYYY-MM-DD" />
                         </div>
                     </div>
-			</div>
-                <div class="sectionArea large">
-                    <div id="updateFaults" class="content">
+                </div>
+            </div>
+            <div class="footer split">
+                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3a', 'uf-1')">
+                    Back
+                </button>
+                <button class="footerBtn rightBtn" id="uf-3Next" onclick="switchPages('uf-3a', 'uf-3b'); setFilters()">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <div class="section uf-3b">
+            <div id="uf-3b-title" class="title">
+                <div class="setSearchFilters">
+                    <button id="filtNavBut" onclick="filtNav()" value="open">Filters</button>
+                    <div id="filtToggle" class="filters hidden ">
+                        <h4 class="filtCarNo">Carriage Number</h4>
+                        <h4 class="filtCat">Fault Category</h4>
+                        <input class="filtCarNo" id="carriagenoRefilter" type="text" placeholder="carriage number" />
+                        <select size="1" id="categoryRefilter" class="filtCat">
+                            <option value="none"></option>
+                            <option value="wifi">WiFi</option>
+                            <option value="socket">Plug Socket</option>
+                            <option value="toilet">Toilet</option>
+                            <option value="displayPanel">Display Panel</option>
+                            <option value="HVAC">Heating/ Air Con</option>
+                            <option value="door">Door</option>
+                            <option value="window">Window</option>
+                            <option value="seat">Seat</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <h4 class="filtStat">Status</h4>
+                        <h4 class="filtDate">Date Reported</h4>
+                        <select size="1" class="filtStat" id="statusRefilter">
+                            <option value="none"></option>
+                            <option value="R">Reported</option>
+                            <option value="I">In Progress</option>
+                            <option value="C">Complete</option>
+                        </select>
+                        <input class="filtDate" id="datereportedRefilter" type="text" placeholder="YYYY-MM-DD" />
                     </div>
                 </div>
-                <div class="footer split">
-                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3b', 'uf-1')">
-                        Back
-                    </button>
-                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="resetFilters()">
-                        Search
-                    </button>
+            </div>
+            <div class="sectionArea large">
+                <div id="updateFaults" class="content">
+                </div>
+            </div>
+            <div class="footer split">
+                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3b', 'uf-1')">
+                    Back
+                </button>
+                <button class="footerBtn rightBtn" id="uf-3Next" onclick="resetFilters()">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <div class="section uf-4">
+            <div class="title">
+                <h2>Allocate a fault</h2>
+            </div>
+
+            <div class="sectionArea large">
+                <div class="content">
+
+                    <div class="item1">
+                        <div class="row summaryHeading">
+                            <div><h3>Fault: </h3></div>
+                            <div><p id="uf4-faultno">12345</p></div>
+                        </div>
+                    </div>
+
+                    <div class="itemx">
+                        <div class="row">
+                            <div><h3>Category: </h3></div>
+                            <div><p id="uf4-category">seat</p></div>
+
+                        </div>
+                        <div class="row">
+                            <div><h3>Date: </h3></div>
+                            <div id="uf4-datereported">24/03/2019</div>
+                        </div>
+                    </div>
+
+                    <div class="item2">
+                        <div class="row">
+                            <div><h3>Carriage: </h3></div>
+                            <div id="uf4-carriageno">12435</div>
+                        </div>
+                        <div class="row">
+                            <div><h3>Seat: </h3></div>
+                            <div id="uf4-seatno">12</div>
+                        </div>
+                    </div>
+
+                    <div class="item3">
+                        <div class="row">
+                            <h3> Description: </h3>
+                            <div id="uf4-faultdesc">the chair is broke</div>
+                        </div>
+                    </div>
+
+                    <div class="item22">
+                        <img id="uf4-img" src="" alt="no image provided" />
+                    </div>
+
                 </div>
             </div>
 
-            <div class="section uf-4">
-                <div class="title">
-                    <h2>Allocate a fault</h2>
-                </div>
-
-                <div class="sectionArea large">
-                    <div class="content">
-
-                        <div class="item1">
-                            <div class="row summaryHeading">
-                                <div><h3>Fault: </h3></div>
-                                <div><p id="uf4-faultno">12345</p></div>
-                            </div>
-                        </div>
-
-                        <div class="itemx">
-                            <div class="row">
-                                <div><h3>Category: </h3></div>
-                                <div><p id="uf4-category">seat</p></div>
-
-                            </div>
-                            <div class="row">
-                                <div><h3>Date: </h3></div>
-                                <div id="uf4-datereported">24/03/2019</div>
-                            </div>
-                        </div>
-                           
-                        <div class="item2">
-                            <div class="row">
-                                <div><h3>Carriage: </h3></div>
-                                <div id="uf4-carriageno">12435</div>
-                            </div>
-                            <div class="row">
-                                <div><h3>Seat: </h3></div>
-                                <div id="uf4-seatno">12</div>
-                            </div>
-                        </div>
-
-                        <div class="item3">
-                            <div class="row">
-                                <h3> Description: </h3>
-                                <div id="uf4-faultdesc">the chair is broke</div>
-                            </div>
-                        </div>
-
-                        <div class="item22">
-                            <img id="uf4-img" src="" alt="no image provided" />
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="footer split">
-                    <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
-                        Back
-                    </button>
-                    <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
-                        Allocate
-                    </button>
-                </div>
+            <div class="footer split">
+                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
+                    Back
+                </button>
+                <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
+                    Allocate
+                </button>
             </div>
+        </div>
     </div>
 </body>
 

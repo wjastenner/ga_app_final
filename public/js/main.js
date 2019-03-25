@@ -23,6 +23,8 @@ var localhost = 'http://localhost:3000';
 
 var host = localhost;
 
+var loadFaultLimit = 10;
+var loadFaultCount = 0;
 
 //object of objects that can be used to populate 
 var faultCategories = {
@@ -310,7 +312,7 @@ function getUsersFaults() {
 
             $('#viewUserFaults').empty();
             for (var i = 0; i < userFaults.length; i++) {
-                $('#viewUserFaults').append("<a id='fault" + i + "' class='faultView' onclick='viewFaultDetails(" + i + ")'>"
+                $('#viewUserFaults').append("<a id='fault" + i + "' class='filters' onclick='viewFaultDetails(" + i + ")'>"
                     + "<h3>" + userFaults[i].carriageno + " - " + userFaults[i].category + " </h3>"
                     + "<h4>" + userFaults[i].faultdesc + " </h4>"
                     + "</a>");
@@ -320,6 +322,19 @@ function getUsersFaults() {
             console.log("error")
         }
     });
+}
+
+function viewFaultDetails(i) {
+    var json = localStorage.getItem('userFaults');
+    var userFaults = JSON.parse(json);
+    var fault = userFaults[i];
+    $("#detImg").remove();
+    getFaultImage(fault.faultno, i);
+    //    $('#detCarNo').text(fault.carriageno);
+    //    $('#detCat').text(fault.category);
+    //    $('#detDes').text(fault.faultdesc);
+    //    $('#detLoc').text(fault.location);
+    //    switchPages('vf-1', 'vf-2');
 }
 
 function getFaultImage(faultNo, i){
@@ -343,20 +358,9 @@ function getFaultImage(faultNo, i){
 }
 // gets all faults reported by the user 
 // returns an array of objects with each fault as an object
-function viewFaultDetails(i) {
-    var json = localStorage.getItem('userFaults');
-    var userFaults = JSON.parse(json);
-    var fault = userFaults[i];
-    $("#detImg").remove();
-    getFaultImage(fault.faultno, i);
-    //    $('#detCarNo').text(fault.carriageno);
-    //    $('#detCat').text(fault.category);
-    //    $('#detDes').text(fault.faultdesc);
-    //    $('#detLoc').text(fault.location);
-    //    switchPages('vf-1', 'vf-2');
-}
 
-function updateFaultDetails(faultNo) {
+
+function getFaultForAllocation(faultNo) {
     var json = JSON.stringify(faultNo);
     $.ajax({
         url: host + "/get_fault",
@@ -382,6 +386,7 @@ function updateFaultDetails(faultNo) {
 }
 
 function setFilters() {
+    loadFaultCount = 0;
     var filters = JSON.parse(localStorage.getItem('filters'));
     for (var filter in filters) {
         var value = $('#' + filter + 'Filter').val();
@@ -419,15 +424,21 @@ function resetFilters() {
     filtNav();
 }
 
-function filterFaults(filters) {
-    var json = JSON.stringify(filters);
+function filterFaults() {
+    var filters = JSON.parse(localStorage.getItem('filters'));
+    var data = new Object();
+    data.filters = filters;
+    data.limit = loadFaultLimit;
+    data.count = loadFaultCount;
     $.ajax({
         url: host + "/filter_faults",
         type: "POST",
         data: json,
         success: function (rt) {
             var faults = JSON.parse(rt);
-            $("#updateFaults").empty();
+            if (loadFaultCount == 0) {
+                $("#updateFaults").empty();
+            }
             for (var key in faults) {
                 var fault = faults[key];
                 switch (fault.status) {
@@ -442,7 +453,7 @@ function filterFaults(filters) {
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='updateFaultDetails(" + fault.faultno + ")'>"
+                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='getFaultForAllocation(" + fault.faultno + ")'>"
                     + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
                     + "<h4>" + fault.faultdesc + " </h4>"
                     + "</a>";
@@ -450,6 +461,7 @@ function filterFaults(filters) {
                 $('#updateFaults').append(str);
                 
             }
+            loadFaultCount += 1;
         },
         error: function () {
             console.log("error")
@@ -816,6 +828,11 @@ function back(page) {
                 switchPages('rf-5', 'rf-4');
             }
             break;
+
+        case 'vf-1':
+            $('#viewUserFaults').empty();
+            switchPages('vf-1', 'options')
+            break;
     }
 }
 
@@ -1085,16 +1102,25 @@ function getAssignedFaults() {
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var str = "<a class='filters' id='" + fault.faultno + "' onclick='viewFaultDetails(" + fault.faultno + ")'>"
-                    + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
-                    + "<h4>" + fault.faultdesc + " </h4>"
+                var str = "<a class='filters' id='" + fault.faultno + "' onclick='displayFaultToUpdate(" + fault.faultno + ")'>"
+                    + "<div class='h3'>" + fault.carriageno + " - " + fault.category + " </div>"
+                    + "<div class='h4'>" + fault.faultdesc + " </div>"
+                    + "<div class='statusBlob'></div>"
+                    + "<div class='statusText'>Recieved</div>"
                     + "</a>";
                 $('#assignedFaults').append(str);
-
+                
             }
+            switchPages('uf-1', 'uf-2');
         },
         error: function () {
             console.log("error");
         }
     });
+}
+
+function displayFaultToUpdate(faultNo){
+
+
+    switchPages('uf-2', 'uf-2a')
 }

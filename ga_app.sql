@@ -57,7 +57,6 @@ CREATE TABLE staff
 );
 -- information to verify staff ID at login (add some dummy data for demo)
 -- name and dob allows staff to login if they don't know their staff ID
-
 CREATE TABLE fault
 (
     faultNo INTEGER,
@@ -70,10 +69,12 @@ CREATE TABLE fault
     timeReported TIME DEFAULT CURRENT_TIME,
     img TEXT,
     status CHAR DEFAULT 'R',
+    assignedTo INTEGER,
     notes VARCHAR(1000),
     CONSTRAINT fault_pk PRIMARY KEY (faultNo),
     CONSTRAINT fault_fk1 FOREIGN KEY (carriageNo) REFERENCES carriage,
-    CONSTRAINT fault_pk2 FOREIGN KEY (staffID) REFERENCES staff
+    CONSTRAINT fault_fk2 FOREIGN KEY (staffID) REFERENCES staff,
+    CONSTRAINT fault_fk3 FOREIGN KEY (assignedTo) REFERENCES staff
 );
 -- this is assuming carriage will always be obtained, but might need to add another table if we could only get the train 
 -- (ie a list of carriages) if they only know where the train was and at what time (ie on a rural train where the carriages don't have letters)
