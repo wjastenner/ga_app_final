@@ -591,67 +591,84 @@
                                 <h3>Fault: </h3>
                             </div>
                             <div>
-                                <p>12345</p>
+                                <p id="uf4-faultno">12345</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="itemx">
-                        <div class="row">
-                            <div>
-                                <h3>Category: </h3>
-                            </div>
-                            <div>
-                                <p>seat</p>
-                            </div>
+                <div class="itemx">
+                    <div class="row">
+                        <div>
+                            <h3>Category: </h3>
+                        </div>
+                        <div>
+                            <p id="uf4-category">seat</p>
+                        </div>
 
-                        </div>
-                        <div class="row">
-                            <div>
-                                <h3>Date: </h3>
-                            </div>
-                            <div>24/03/2019</div>
-                        </div>
                     </div>
-
-                    <div class="item2">
-                        <div class="row">
-                            <div>
-                                <h3>Carriage: </h3>
-                            </div>
-                            <div>12435</div>
+                    <div class="row">
+                        <div>
+                            <h3>Date: </h3>
                         </div>
-                        <div class="row">
-                            <div>
-                                <h3>Seat: </h3>
-                            </div>
-                            <div>12</div>
-                        </div>
-                    </div>
-
-                    <div class="item3">
-                        <div class="row">
-                            <h3> Description: </h3>
-                            <div>the chair is broke</div>
-                        </div>
-                    </div>
-
-                    <div class="item22">
-                        <img id="alloc-img" src="" alt="fuck off" />
+                        <div id="uf4-datereported">24/03/2019</div>
                     </div>
 
                 </div>
+
+                <div class="item2">
+                    <div class="row">
+                        <div>
+                            <h3>Carriage: </h3>
+                        </div>
+                        <div id="uf4-carriageno">12435</div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <h3>Seat: </h3>
+                        </div>
+                        <div id="uf4-seatno">12</div>
+                    </div>
+                    <div>24/03/2019</div>
+                </div>
             </div>
 
-            <div class="footer split">
-                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
-                    Back
-                </button>
-                <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
-                    Allocate
-                </button>
+            <div class="item3">
+                <div class="row">
+                    <h3> Description: </h3>
+                    <div id="uf4-faultdesc">the chair is broke</div>
+                </div>
+                <div>12435</div>
+            </div>
+            <div class="row">
+                <div>
+                    <h3>Seat: </h3>
+                </div>
+                <div>12</div>
             </div>
         </div>
+
+        <div class="item22">
+            <img id="uf4-img" src="" alt="no image provided" />
+        </div>
+    </div>
+
+    <div class="item22">
+        <img id="alloc-img" src="" alt="fuck off" />
+    </div>
+
+    </div>
+    </div>
+
+    <div class="footer split">
+        <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
+            Back
+        </button>
+        <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
+            Allocate
+        </button>
+    </div>
+    </div>
     </div>
 </body>
 
