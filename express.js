@@ -8,11 +8,16 @@ console.log("server running \n");
 var host = '127.0.0.1';
 var port = 5432;
 
-/* uni login*/
-  var user = 'student';
-  var database = 'studentdb';
-  var password = 'dbpassword';
-  var searchPath = "studentdb, ga_app";
+// /* uni login*/
+//   var user = 'student';
+//   var database = 'studentdb';
+//   var password = 'dbpassword';
+//   var searchPath = "studentdb, ga_app";
+
+  var user = 'postgres';
+  var database = 'postgres';
+  var password = 'password';
+  var searchPath = "ga_app";
 
 /* ben login */
 //var user = 'postgres';
@@ -171,7 +176,7 @@ app.post('/submit_form', async function (req, res) {
 			console.log(sqlQuery);
 			//console.log(values);
 			const sqlQueryResult = await client.query(sqlQuery);
-			console.log(sqlQueryResult);
+			result = sqlQueryResult.rows;
 			result.success = true;
 		}
 		catch (err) {

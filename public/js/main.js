@@ -293,6 +293,10 @@ function submitForm() {
                 localStorage.removeItem('reportFault');
                 reset();
                 switchPages('rf-5', 'rf-6');
+                var reportFault = JSON.parse(localStorage.getItem('reportFault'));
+                reportFault.faultNo = returnedData.fault_no;
+                setLocalStorage('reportFault',JSON.stringify(reportFault));
+                $("#refNo").text(returnedData.fault_no);
             }
         },
         error: function () {

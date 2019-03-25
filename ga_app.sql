@@ -22,6 +22,16 @@ DROP FUNCTION IF EXISTS carriage_details
 DROP FUNCTION IF EXISTS carExists
 (integer);
 
+DROP FUNCTION IF EXISTS insert_fault(INTEGER, 
+VARCHAR
+(100), 
+VARCHAR
+(100), 
+VARCHAR
+(1000), 
+INTEGER,
+TEXT);
+
 CREATE TABLE carriageClass
 (
     carriageClass VARCHAR(2),
@@ -196,8 +206,22 @@ IF;
  END;$$
 LANGUAGE PLPGSQL;
 
-CREATE OR REPLACE FUNCTION insert_fault
-(INTEGER, 
+-- CREATE OR REPLACE FUNCTION insert_fault
+-- (INTEGER, 
+-- VARCHAR
+-- (100), 
+-- VARCHAR
+-- (100), 
+-- VARCHAR
+-- (1000), 
+-- INTEGER,
+-- TEXT)
+-- RETURNS VOID AS
+--   'INSERT INTO fault(faultNo, carriageNo, category, location, faultDesc, staffID, img)
+-- 	VALUES ((SELECT COALESCE(MAX(faultNo),0) FROM fault) + 1, $1, $2, $3, $4, $5, $6);'
+-- LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION insert_fault(INTEGER, 
 VARCHAR
 (100), 
 VARCHAR
@@ -206,10 +230,13 @@ VARCHAR
 (1000), 
 INTEGER,
 TEXT)
-RETURNS VOID AS
-  'INSERT INTO fault(faultNo, carriageNo, category, location, faultDesc, staffID, img)
-	VALUES ((SELECT COALESCE(MAX(faultNo),0) FROM fault) + 1, $1, $2, $3, $4, $5, $6);'
-LANGUAGE SQL;
+RETURNS table(fault_no INTEGER) AS $$
+BEGIN
+INSERT INTO fault(faultNo, carriageNo, category, location, faultDesc, staffID, img)
+VALUES ((SELECT COALESCE(MAX(faultNo),0) FROM fault) + 1, $1, $2, $3, $4, $5, $6);
+RETURN QUERY SELECT COALESCE(MAX(faultNo),0) FROM fault;
+ END;$$
+LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION assign_fault
 (INTEGER,INTEGER)
