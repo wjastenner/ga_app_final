@@ -60,7 +60,7 @@
     <div class="main" id="main">
 
         <!-- Login Page -->
-        <div class="section login current fade">
+        <div class="section login">
             <div class="title">
                 <h4 class="stepTitle">Staff Login</h4>
             </div>
@@ -140,7 +140,7 @@
                 Enter carriage Number. If they dont know it they can choose
                 to enter different details about the train to locate it.
     -->
-        <div class="section rf-1">
+        <div class="section rf-1 current fade">
             <div class="title">
                 <h4 class="stepTitle">Step 1/5 - Enter Carriage Number</h4>
                 <button class="info" onclick="openPopup('rf-1')">
@@ -160,7 +160,8 @@
                 </div>
             </div>
             <div class="footer split">
-                <button class="footerBtn leftBtn" id="rf-1Back" onclick="switchPages('rf-1', 'options'); clearIssues()">
+                <button class="footerBtn leftBtn" id="rf-1Back"
+                    onclick="back('rf-1'); switchPages('rf-1', 'options'); clearIssues()">
                     Back
                 </button>
                 <button class="footerBtn rightBtn" id="rf-1Next" onclick="checkInput('rf-1')">
@@ -275,18 +276,14 @@
                                 <span id="imgUploadStatus" class="glyphicon glyphicon-unchecked"></span>
                             </div>
                         </button>
-
                     </div>
                 </div>
             </div>
-
-
-
             <div class="footer split">
                 <button class="footerBtn leftBtn" onclick="back('rf-3');">
                     Back
                 </button>
-                <button class="footerBtn rightBtn" onclick="checkInput('rf-3');">
+                <button class="footerBtn rightBtn" id="rf3NextBtn" onclick="checkPhoto();">
                     Next
                 </button>
             </div>
@@ -301,9 +298,8 @@
         <div class="section rf-4">
             <div class="title">
                 <h4 class="stepTitle">Step 4/5 - Locate the fault</h4>
-                <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                </button>
+                <button class="info" id="info-rf-4" onclick="openPopup('rf-4')">
+                    <i class="glyphicon glyphicon-info-sign"></i></button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
@@ -360,29 +356,35 @@
         </div>
 
         <!-- Report Fault Page 5
-                This page provides a summary of the fault before allowing them to submit it.
-    -->
-
+                        This page provides a summary of the fault before allowing them to submit it. 
+            -->
         <div class="section rf-5">
             <div class="title">
                 <h4 class="stepTitle">Step 5/5 - Fault Summary</h4>
-                <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
+                    <h4>Please see a summary of your fault below. If you are happy with it and wish to continue press
+                        submit.</h4>
                     <div class="sumInfo">
-                        <h4>Fault </h4>
-                        <h4>#num</h4>
-                        <h4>Carriage: </h4>
-                        <h4 id="sumCarNo" class="sumPageInfo">123321</h4>
-                        <h4>Category: </h4>
-                        <h4 id="sumCat" class="sumPageInfo">Seat</h4>
-                        <h4>Location: </h4>
-                        <h4 id="sumLoc" class="sumPageInfo">Seat 33</h4>
+                        <h4>Location Details</h4>
+                        <div class="sumInfo1">
+                            <h4>Carriage</h4>
+                            <h4>Location</h4>
+                            <h4 id="sumCarNo" class="sumPageInfo"></h4>
+                            <h4 id="sumLoc" class="sumPageInfo"></h4>
+                        </div>
+                        <h4>Additional Information</h4>
+                        <div class="sumInfo2">
+                            <h4>Date - <span id="sumDate" class="sumPageInfo"></span></h4>
+                            <h4>Category - <span id="sumCat" class="sumPageInfo"></span>
+                            </h4>
+                            <h4>Description</h4>
+                            <h4 id="sumDes" class="sumPageInfo"></h4>
+                        </div>
+                        <img id="sumImg" src="" alt="" />
                     </div>
-                    <img id="sumImg" src="" alt="" />
+
                 </div>
             </div>
             <div class="footer split">
@@ -402,9 +404,6 @@
         <div class="section rf-6">
             <div class="title">
                 <h4 class="stepTitle">Report Submitted</h4>
-                <button class="info" onclick=pageInfo()>
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                </button>
             </div>
             <div class="sectionArea large">
                 <div class="content">
@@ -606,7 +605,7 @@
             </div>
         </div>
 
-        <div class="section uf-4">
+        <!--<div class="section uf-4">
             <div class="title">
                 <h2>Allocate a fault</h2>
             </div>
@@ -654,8 +653,8 @@
                     <div class="item22">
                         <img id="uf4-img" src="" alt="no image provided" />
                     </div>
-
                 </div>
+                <div>12</div>
             </div>
 
             <div class="footer split">
@@ -666,7 +665,7 @@
                     Allocate
                 </button>
             </div>
-        </div>
+        </div>-->
     </div>
 </body>
 

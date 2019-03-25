@@ -205,7 +205,7 @@ button {
         max-width: 600px;
         justify-self: center;
         z-index: 1;
-        align-self: end;
+        //align-self: end;
     }
 
     .footer {
@@ -254,7 +254,7 @@ button {
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;
-
+        align-self: flex-end;
         .filters {
             display: grid;
             grid-template-columns: 50% 50%;
@@ -262,58 +262,9 @@ button {
         }
     }
 
-    .filters {
-        display: grid;
-        grid-template-columns: 60% 10% 30%;
-        grid-template-areas: 'h3a blob status' 'h4a blob status';
-        text-align: left;
-        margin: 10px;
-        padding: 10px;
-        border: none;
-        border-color: $tertiary_colour;
-        background-color: $tertiary_colour;
-        border-radius: 5px;
-        color: white;
-        //width: 100%;
-        &:active {
-            background-color: darken($tertiary_colour, 10%);
-        }
-
-        #detImg {
-            height: 100%;
-            width: 100%;
-        }
-
-        .h3 {
-            text-align: left;
-            grid-area: h3a;
-        }
-
-        .h4 {
-            text-align: left;
-            grid-area: h4a;
-        }
-
-        .statusBlob {
-            float: right;
-            grid-area: blob;
-            height: 30px;
-            width: 30px;
-            border: solid;
-            border-color: $statusRecieved;
-            background-color: $statusRecieved;
-            border-radius: 50%;
-        }
-
-        .statusText{
-            grid-area: status;
-            text-align: left;
-            //justify-content: center;
-        }
-    }
 }
 
-.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .uf-1{
+.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .uf-1, .uf-3a{
   .sectionArea{
     .content{
       display: grid;
@@ -543,6 +494,7 @@ button {
       }
       .issue{
         margin-bottom: 5px;
+        font-size: 1.25rem;
       }
       .numberPad{
         display: grid;
@@ -574,7 +526,56 @@ button {
   .sectionArea{
     overflow: scroll;
     .content{
-      
+      .sumInfo{
+        
+        display: grid;
+        grid-gap: 10px;
+        padding: 10px;
+        *{
+          // border: solid 2px black;
+          width: 100%;
+          padding: 5px;
+        }
+
+        .sumInfo1,.sumInfo2{
+          display: grid;
+          grid-gap: 5px;
+          background-color: white;
+          border-radius: 5px;
+        }
+
+        .sumInfo1{          
+          grid-template-columns: 40% 60%;
+          :nth-child(1), :nth-child(2){
+            font-size: 0.8rem;
+          }
+          :nth-child(3), :nth-child(4){
+            font-size: 1.5rem;
+            color: $primary_colour;
+          }
+        }
+        .sumInfo2{
+          span{
+            color: $primary_colour;
+            font-size: 1.3rem;
+          }
+          :nth-child(4){
+            color: $primary_colour;
+            font-size: 1rem;
+          }
+        }
+
+        img{
+          padding: 0px;
+          box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
+          // display: none;
+          // &.show{
+          //   display: grid;
+          // }
+        }
+        
+
+      }
     }
   }
 }
@@ -588,6 +589,59 @@ button {
       }
     }
   }
+}
+
+.uf-2 {
+
+    .filters {
+        display: grid;
+        grid-template-columns: 60% 10% 30%;
+        grid-template-areas: 'h3a blob status' 'h4a blob status';
+        text-align: left;
+        margin: 10px;
+        padding: 10px;
+        border: none;
+        border-color: $tertiary_colour;
+        background-color: $tertiary_colour;
+        border-radius: 5px;
+        color: white;
+        //width: 100%;
+        &:active {
+            background-color: darken($tertiary_colour, 10%);
+        }
+
+        #detImg {
+            height: 100%;
+            width: 100%;
+        }
+
+        .h3 {
+            text-align: left;
+            grid-area: h3a;
+        }
+
+        .h4 {
+            text-align: left;
+            grid-area: h4a;
+        }
+
+        .statusBlob {
+            float: right;
+            grid-area: blob;
+            height: 30px;
+            width: 30px;
+            border: solid;
+            border-color: $statusRecieved;
+            background-color: $statusRecieved;
+            border-radius: 50%;
+        }
+
+        .statusText {
+            grid-area: status;
+            text-align: left;
+            //justify-content: center;
+        }
+    }
 }
 
 #selectPic{
@@ -623,8 +677,11 @@ button {
   display: block;
   color: white;
   font-size: 1rem;
+  opacity: 0;
+  transition: all 0.5s;
   &.show {
     color: $primary_colour;
+    opacity: 1;
   }
 }
 
@@ -706,11 +763,11 @@ h5{
     margin-bottom: 5px;
 }
 
-h4{
+/*h4{
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 1rem;
-}
+}*/
 
 .sideNav{
   height: 100%;
@@ -877,7 +934,7 @@ h4{
                 background-color: $tertiary_colour;
                 border-radius: 5px;
                 color: white;
-                //width: 100%;
+                width: 100%;
                 &:active {
                     background-color: darken($tertiary_colour, 10%);
                 }

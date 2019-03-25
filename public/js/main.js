@@ -14,6 +14,9 @@ $(function () {
     $('#description').on("change keyup paste", function () {
         charsRemaining('description');
     });
+
+    $("#sumDate").empty();
+
 });
 
 var ngrokRan = '11417996';
@@ -349,12 +352,12 @@ function getFaultImage(faultNo, i){
             var fault = JSON.parse(rt);
             console.log(fault[0].img);
             var src = fault[0].img;
-    $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='fault image' />");
+            $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='fault image' />");
         },
         error: function () {
             console.log("error");
         }
-    });    
+    });
 }
 // gets all faults reported by the user 
 // returns an array of objects with each fault as an object
@@ -381,7 +384,7 @@ function getFaultForAllocation(faultNo) {
         error: function () {
             console.log("error");
         }
-    }); 
+    });
     switchPages('uf-3b', 'uf-4');
 }
 
@@ -430,6 +433,7 @@ function filterFaults() {
     data.filters = filters;
     data.limit = loadFaultLimit;
     data.count = loadFaultCount;
+    var json = JSON.stringify(data);
     $.ajax({
         url: host + "/filter_faults",
         type: "POST",
@@ -459,7 +463,7 @@ function filterFaults() {
                     + "</a>";
                 //console.log(str);
                 $('#updateFaults').append(str);
-                
+
             }
             loadFaultCount += 1;
         },
@@ -482,7 +486,7 @@ function filtNavToggle(toggle) {
         }, 0);
 
         setTimeout(function () {
-            $('#filtToggle').addClass('fade'); 
+            $('#filtToggle').addClass('fade');
         }, 500);
     } else {
         setTimeout(function () {
@@ -530,7 +534,11 @@ function typeNum(num) {
         }
     } else {
         $("#seatNoIssueMsg").text(" Seat number too large");
+
         $("#invalidSeatNo").addClass("show");
+
+        setTimeout(function () { $("#invalidSeatNo").removeClass("show"); }, 1500);
+        
         console.log('seat number too large');
     }
 }
@@ -574,7 +582,7 @@ function checkInput(page) {
 
         case 'rf-1':
 
-            getCarriageDetails();
+            carriageFaults();
             break;
 
         case 'rf-2':
@@ -644,14 +652,11 @@ function checkInput(page) {
 
         case 'rf-3':
 
-            var carDetails = JSON.parse(localStorage.getItem("carDetails"));
             var locationNotRequired = noLocationFaults.includes(reportFault.location);
-            var photoNotRequired = noPhotoFaults.includes(reportFault.category);
             var description = $('#description').val();
 
             $("#region").removeClass("show");
             $("#seats").removeClass("show");
-
 
             if (description === '') {
                 alert('please provide a description of the fault');
@@ -660,49 +665,31 @@ function checkInput(page) {
                 addFaultDetails('description', description);
             }
 
-            if (!photoNotRequired && !reportFault.img) {
-                openPopup('camera');
-                break;
-            }
-
-
             if (locationNotRequired) {
                 setSummaryPage();
                 switchPages('rf-3', 'rf-5');
             } else {
-                if (carDetails.seats > 0) {
-                    var maxSeats = carDetails.seats;
-                    $("#seats").addClass("show");
-                    $("#maxSeatNo").text(maxSeats);
-                    $("#seats").addClass("show");
-                } else {
-                    $("#region").addClass("show");
-                }
+                setRF4();
                 switchPages('rf-3', 'rf-4');
             }
-
-
-
             break;
 
-        case 'camera':
+        case 'rf-3Popup':
 
-            var carDetails = JSON.parse(localStorage.getItem("carDetails"));
             var locationNotRequired = noLocationFaults.includes(reportFault.location);
+            var description = $('#description').val();
+
+            $("#region").removeClass("show");
+            $("#seats").removeClass("show");
+
+            addFaultDetails('description', description);
 
             if (locationNotRequired) {
                 setSummaryPage();
                 closePopup();
                 switchPages('rf-3', 'rf-5');
             } else {
-                if (carDetails.seats > 0) {
-                    var maxSeats = carDetails.seats;
-                    $("#seats").addClass("show");
-                    $("#maxSeatNo").text(maxSeats);
-                    $("#seats").addClass("show");
-                } else {
-                    $("#region").addClass("show");
-                }
+                setRF4();
                 closePopup();
                 switchPages('rf-3', 'rf-4');
             }
@@ -753,6 +740,44 @@ function step2ToStep3(selectedFault) {
 
 }
 
+function setRF4() {
+
+    var carDetails = JSON.parse(localStorage.getItem("carDetails"));
+
+    if (carDetails.seats > 0) {
+        var maxSeats = carDetails.seats;
+        $("#seats").addClass("show");
+        $("#maxSeatNo").text(maxSeats);
+        $("#seats").addClass("show");
+    } else {
+        $("#region").addClass("show");
+    }
+
+}
+
+function checkPhoto() {
+
+    // checks if photo exists
+    var reportFault = JSON.parse(localStorage.getItem('reportFault'));
+    // if it does exist then the next button will run the regular checks and changes
+    if (reportFault.img) {
+        checkInput('rf-3');
+    } else {
+
+        var description = $('#description').val();
+
+        if (description === '') {
+            alert('please provide a description of the fault');
+        } else {
+            openPopup('camera');
+        }
+
+    }
+
+    // if it doesn't exist it will open a popup menu that will have a next button that will execute the previous comment. The back button will open the file chooser and minimise the popup
+
+}
+
 //function added by ben.
 //used when transitioning from rf page 2 to rf page 3 
 //called with true if a category requires a photo to be added when on rf page 3
@@ -793,9 +818,15 @@ function storeDescription() {
 }
 
 function back(page) {
+
+    var reportFault = JSON.parse(localStorage.getItem('reportFault'));
+
     switch (page) {
         case 'signOut':
             switchPages('section', 'login');
+            break;
+        case 'rf-1':
+            reset();
             break;
         case 'rf-2':
             // empty local storage
@@ -808,6 +839,18 @@ function back(page) {
             removeFaultDetails('location');
             removeFaultDetails('category');
             switchPages('rf-3', 'rf-2');
+
+            if (reportFault.img) {
+                $('#imgUploadStatus').removeClass('glyphicon-unchecked');
+                $('#imgUploadStatus').addClass('glyphicon-checked');
+                $('.addImageTitle').text('Change Photo');
+            } else {
+                $('#imgUploadStatus').addClass('glyphicon-unchecked');
+                $('#imgUploadStatus').removeClass('glyphicon-checked');
+                $('.addImageTitle').text('Add Photo');
+            }
+
+
             break;
         case 'rf-4':
             // remove fault description
@@ -854,8 +897,18 @@ function setSummaryPage() {
                 $("#sumLoc").empty();
                 $("#sumLoc").text(reportFaultDetails[key].charAt(0).toUpperCase() + reportFaultDetails[key].slice(1));
                 break;
+            case 'description':
+                $("#sumDes").empty();
+                $("#sumDes").text(reportFaultDetails[key].charAt(0).toUpperCase() + reportFaultDetails[key].slice(1));
+                break;
         }
     }
+
+    $("#sumDate").empty();
+    var currentDateTime = new Date().toLocaleString();
+    $("#sumDate").text(currentDateTime);
+
+
 }
 
 // When an event listener’s event occurs it calls its associated function and passes a reference to the event object
@@ -919,12 +972,12 @@ function sideNav(scenario) {
         case 'uf-1':
             // check login status. if legit switch pages and toggle
             if (loginStatus !== null) {
+                reset();
                 switchPages('section', scenario);
                 sideNavToggle();
             }
             break;
         case 'signOut':
-
             if (loginStatus !== null) {
                 localStorage.clear();
                 switchPages('section', 'login');
@@ -954,6 +1007,7 @@ function sideNavToggle(task) {
         $('header').css('margin-left', '250px');
         $('.section').css('margin-left', '250px');
     }
+
 }
 
 // called if the user clicks sign out from overlay or they report a fault successfully
@@ -970,6 +1024,9 @@ function reset() {
     $('#imgUploadStatus').addClass('glyphicon-unchecked');
     $('.addImageTitle').text('Add Photo');
     $('#sumImg').attr('src', '');
+    $('#charsRemainingCat').text('50');
+    $('#charsRemainingDesc').text('300');
+    
 }
 
 function changeFontSize() {
@@ -1008,7 +1065,37 @@ function openFileChooser() {
     document.getElementById('fileChooser').click();
 }
 
+
+function carriageFaults() {
+
+    var carriageNo = $('#carNum').val();
+    var json = JSON.stringify(carriageNo);
+    var output = {};
+    $.ajax({
+        url: host + "/get_carriage_faults",
+        type: "POST",
+        data: json,
+        success: function (rt) {
+            output = JSON.parse(rt);
+            console.log(output.length);
+            if (output.length > 0){
+                // if faults exists open popup
+                openPopup('rf-3a');
+            } else {
+                getcarriagedetails();
+            }
+ 
+        },
+        error: function () {
+            console.log("error");
+            alert("there has been an error contacting the server");
+        }
+    });
+}
+
 function openPopup(page) {
+
+    console.log(page);
 
     $('.popup').addClass('footless');
     $('#popupTitle').empty();
@@ -1020,10 +1107,16 @@ function openPopup(page) {
 
 
     switch (page) {
+
+        case 'rf-1a':
+            $('#popupTitle').text('Current Faults');
+            $('#popupDescription').text('Please see the current unresolved faults on your carriage before continuing.');
+            $("#popupDescription").after("");
+            break;
         case 'rf-1':
             $('#popupTitle').text('Page Guidance');
             $('#popupDescription').text('This page requires you to enter the carriage number in which you found the fault. Please see some images below to help you locate the carriage number.');
-            $("#popupDescription").after("<img class='popupImg' src='public/imgs/carNum1.png' alt=''><img class='popupImg' src='public/imgs/carNum2.png' alt=''><img class='popupImg' src='public/imgs/carNum3.png' alt=''>");
+            $("#popupDescription").after("<img class='popupImg' src='imgs/carNum1.png' alt=''><img class='popupImg' src='imgs/carNum2.png' alt=''><img class='popupImg' src='imgs/carNum3.png' alt=''>");
             $('.popup').removeClass('footless');
             break;
         case 'rf-2':
@@ -1044,7 +1137,25 @@ function openPopup(page) {
             $('#popupLeftBtn').attr('onclick', "closePopup(); openFileChooser()");
 
             $('#popupRightBtn').empty().text('Continue');
-            $('#popupRightBtn').attr("onclick", "checkInput('camera')");
+            $('#popupRightBtn').attr("onclick", "checkInput('rf-3Popup'); closePopup()");
+
+            break;
+
+        case 'rf-4':
+
+            var faultLocatorActive = $('.faultLocator.seats.show').length;
+
+            if (faultLocatorActive === 1) {
+                $('#popupTitle').text('Page Guidance');
+                $('#popupDescription').text('This page requires you to use the key pad to input the closest seat to the fault. Please see some images below to help you locate your seat number.');
+                $("#popupDescription").after("<img class='popupImg' src='imgs/Seat_1.png' alt=''><img class='popupImg' src='imgs/Seat_2.png' alt=''><img class='popupImg' src='imgs/Seat_3.png' alt=''>");
+            } else {
+                $('#popupTitle').text('Page Guidance');
+                $('#popupDescription').text('This pages requires you to select the area on the carriage in which the fault was found.');
+            }
+
+
+
 
             break;
     }
