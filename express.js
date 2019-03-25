@@ -9,10 +9,10 @@ var host = '127.0.0.1';
 var port = 5432;
 
 /* uni login*/
- var user = 'student';
- var database = 'studentdb';
- var password = 'dbpassword';
- var searchPath = "studentdb, ga_app";
+//  var user = 'student';
+//  var database = 'studentdb';
+//  var password = 'dbpassword';
+//  var searchPath = "studentdb, ga_app";
 
 /* ben login */
 //var user = 'postgres';
@@ -21,10 +21,10 @@ var port = 5432;
 //var searchPath = "category, coursework_schema";
 
 /* Will login */
-//var user = 'postgres';
-//var database = 'projects';
-//var password = 'password';
-//var searchPath = "projects, ga_app;";
+var user = 'postgres';
+var database = 'projects';
+var password = 'password';
+var searchPath = "projects, ga_app;";
 
 var client;
 
@@ -304,63 +304,63 @@ app.post('/get_fault', async function (req, res) {
 });
 
 app.post('/change_fault_status', async function (req, res) {
-    console.log(req.url);
-    console.log(req.method);
+	console.log(req.url);
+	console.log(req.method);
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 
-    await connectDB();
+	await connectDB();
 
-    var sqlQuery;
+	var sqlQuery;
 
-    req.on('data', async function (data) {
-        var result = new Object();
-        var json = JSON.parse(data);
-        console.log(json);
-        if (json.status == 'I') {
-            sqlStatement = 'SELECT * FROM assign_fault(' + json.faultNo + "," + json.staffID + ");"
-        }
-        else {
-            sqlStatement = 'UPDATE fault SET status =' + json.status + 'where faultNo =' + json.faultNo + ';';
-        }
-        try {
-            await client.query(sqlStatement);
-            result.success = true;
-        }
-        catch (err) {
-            console.log(err);
-            result.success = false;
-        }
-        var json_res = JSON.stringify(result);
-        res.end(json_res);
-    });
+	req.on('data', async function (data) {
+		var result = new Object();
+		var json = JSON.parse(data);
+		console.log(json);
+		if (json.status == 'I') {
+			sqlStatement = 'SELECT * FROM assign_fault(' + json.faultNo + "," + json.staffID + ");"
+		}
+		else {
+			sqlStatement = 'UPDATE fault SET status =' + json.status + 'where faultNo =' + json.faultNo + ';';
+		}
+		try {
+			await client.query(sqlStatement);
+			result.success = true;
+		}
+		catch (err) {
+			console.log(err);
+			result.success = false;
+		}
+		var json_res = JSON.stringify(result);
+		res.end(json_res);
+	});
 });
 
 app.post('/get_assigned_faults', async function (req, res) {
-    console.log(req.url);
-    console.log(req.method);
+	console.log(req.url);
+	console.log(req.method);
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 
-    await connectDB();
+	await connectDB();
 
-    var sqlQuery;
+	var sqlQuery;
 
-    req.on('data', async function (data) {
-        var result;
-        var json = JSON.parse(data);
-        sqlStatement = 'SELECT faultNo, carriageNo, category,location, faultDesc, dateReported FROM fault WHERE assignedTo =' + json.userID + ', ORDER BY dateReported ASC;';
-        console.log(sqlStatement);
-        try {
-            const SQLQueryResult = await client.query(sqlStatement);
-            result = SQLQueryResult.rows;
-        }
-        catch (err) {
-            result = new Object;
-        }
-        var json_res = JSON.stringify(result);
-        res.end(json_res);
-    });
+	req.on('data', async function (data) {
+		var result;
+		var json = JSON.parse(data);
+		sqlStatement = 'SELECT faultNo, carriageNo, category,location, faultDesc, dateReported FROM fault WHERE assignedTo =' + json.userID + ', ORDER BY dateReported ASC;';
+		console.log(sqlStatement);
+		try {
+			const SQLQueryResult = await client.query(sqlStatement);
+			result = SQLQueryResult.rows;
+		}
+		catch (err) {
+			result = new Object;
+		}
+		var json_res = JSON.stringify(result);
+		res.end(json_res);
+	});
 });
 
 app.get('/', function (req, res) {

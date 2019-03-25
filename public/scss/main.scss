@@ -507,7 +507,56 @@ button {
   .sectionArea{
     overflow: scroll;
     .content{
-      
+      .sumInfo{
+        
+        display: grid;
+        grid-gap: 10px;
+        padding: 10px;
+        *{
+          // border: solid 2px black;
+          width: 100%;
+          padding: 5px;
+        }
+
+        .sumInfo1,.sumInfo2{
+          display: grid;
+          grid-gap: 5px;
+          background-color: white;
+          border-radius: 5px;
+        }
+
+        .sumInfo1{          
+          grid-template-columns: 40% 60%;
+          :nth-child(1), :nth-child(2){
+            font-size: 0.8rem;
+          }
+          :nth-child(3), :nth-child(4){
+            font-size: 1.5rem;
+            color: $primary_colour;
+          }
+        }
+        .sumInfo2{
+          span{
+            color: $primary_colour;
+            font-size: 1.3rem;
+          }
+          :nth-child(4){
+            color: $primary_colour;
+            font-size: 1rem;
+          }
+        }
+
+        img{
+          padding: 0px;
+          box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
+          // display: none;
+          // &.show{
+          //   display: grid;
+          // }
+        }
+        
+
+      }
     }
   }
 }

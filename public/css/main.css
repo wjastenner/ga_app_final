@@ -363,6 +363,34 @@ button {
 
 .rf-5 .sectionArea {
   overflow: scroll; }
+  .rf-5 .sectionArea .content .sumInfo {
+    display: grid;
+    grid-gap: 10px;
+    padding: 10px; }
+    .rf-5 .sectionArea .content .sumInfo * {
+      width: 100%;
+      padding: 5px; }
+    .rf-5 .sectionArea .content .sumInfo .sumInfo1, .rf-5 .sectionArea .content .sumInfo .sumInfo2 {
+      display: grid;
+      grid-gap: 5px;
+      background-color: white;
+      border-radius: 5px; }
+    .rf-5 .sectionArea .content .sumInfo .sumInfo1 {
+      grid-template-columns: 40% 60%; }
+      .rf-5 .sectionArea .content .sumInfo .sumInfo1 :nth-child(1), .rf-5 .sectionArea .content .sumInfo .sumInfo1 :nth-child(2) {
+        font-size: 0.8rem; }
+      .rf-5 .sectionArea .content .sumInfo .sumInfo1 :nth-child(3), .rf-5 .sectionArea .content .sumInfo .sumInfo1 :nth-child(4) {
+        font-size: 1.5rem;
+        color: #d70428; }
+    .rf-5 .sectionArea .content .sumInfo .sumInfo2 span {
+      color: #d70428;
+      font-size: 1.3rem; }
+    .rf-5 .sectionArea .content .sumInfo .sumInfo2 :nth-child(4) {
+      color: #d70428;
+      font-size: 1rem; }
+    .rf-5 .sectionArea .content .sumInfo img {
+      padding: 0px;
+      box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.5); }
 
 .rf-6 .sectionArea .content h3 {
   justify-self: start;
