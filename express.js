@@ -9,15 +9,15 @@ var host = '127.0.0.1';
 var port = 5432;
 
 // /* uni login*/
-//   var user = 'student';
-//   var database = 'studentdb';
-//   var password = 'dbpassword';
-//   var searchPath = "studentdb, ga_app";
+   var user = 'student';
+   var database = 'studentdb';
+   var password = 'dbpassword';
+   var searchPath = "studentdb, ga_app";
 
-  var user = 'postgres';
-  var database = 'postgres';
-  var password = 'password';
-  var searchPath = "ga_app";
+  // var user = 'postgres';
+  // var database = 'postgres';
+  // var password = 'password';
+  // var searchPath = "ga_app";
 
 /* ben login */
 //var user = 'postgres';
@@ -176,8 +176,11 @@ app.post('/submit_form', async function (req, res) {
 			console.log(sqlQuery);
 			//console.log(values);
 			const sqlQueryResult = await client.query(sqlQuery);
-			result = sqlQueryResult.rows;
+			
+			result = sqlQueryResult.rows[0];
+			console.log(result);
 			result.success = true;
+			console.log(result);
 		}
 		catch (err) {
 			console.log(err);

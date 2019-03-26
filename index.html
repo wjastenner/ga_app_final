@@ -5,22 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="public/css/main.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="public/js/main.js"></script>
     <script src="js/main.js"></script>
     <title>Document</title>
     <link rel='shortcut icon' type='image/x-icon' href='imgs/ga-flavicon.ico' />
-    <link rel='shortcut icon' type='image/x-icon' href='public/imgs/ga-flavicon.ico' />
 </head>
 
 <body>
     <header>
         <button onclick="sideNav('toggle')">
-            <div class="btn-line"></div>
-            <div class="btn-line"></div>
-            <div class="btn-line"></div>
+		<img id="burger" src="imgs/burger.png" alt="menu"/>
         </button>
         <!--<img src="public/imgs/galogo_xs.jpg" alt="ga"> -->
         <img src="imgs/galogo_xs.jpg" alt="ga">
@@ -42,9 +37,9 @@
 
     <div class="popup">
         <a href="javascript:void(0)" class="closeBtn" onclick="closePopup()">&times;</a>
-        <h3 class="title" id="popupTitle"></h3>
+        <h3 class="title" id="popupTitle">popup title</h3>
         <div class="content" id="popupContent">
-            <h3 class="description" id="popupDescription"></h3>
+            <h3 class="description" id="popupDescription">popup description</h3>
         </div>
 
         <div class="footer" id="popupFooter">
@@ -60,7 +55,7 @@
     <div class="main" id="main">
 
         <!-- Login Page -->
-        <div class="section login">
+        <div class="section login current fade">
             <div class="title">
                 <h4 class="stepTitle">Staff Login</h4>
             </div>
@@ -206,7 +201,7 @@
 
                     </div>
                     <div class="textarea" id="otherCategory">
-                        <textarea id="otherCategoryTxt" name="" cols="" rows="2" maxlength=50
+                        <textarea id="otherCategoryTxt" rows="2" maxlength=50
                                   placeholder="Please categorise the fault before continuing here..."></textarea>
                         <h5 class="textareaCounter" id="otherCatCounter">
                             Characters remaining: <span id="charsRemainingCat">50</span>
@@ -260,19 +255,19 @@
                             </button>
                         </div>
                         <div class="textarea">
-                            <textarea id="description" name="" cols="" rows="4" maxlength=300
+                            <textarea id="description" rows="4" maxlength=300
                                       placeholder="Add or change your description at any point by pressing here..."></textarea>
                             <h5 class="textareaCounter">Characters remaining: <span id=charsRemainingDes>300</span></h5>
                         </div>
                     </div>
                     <div id="addPhoto" class="additionalDescription">
                         <input type="file" accept="image/*" id="fileChooser">
-                        <button id="selectPic" value="Select/Take Picture" onclick="openFileChooser()">
-                            <div class="addPhotoContent">
+                        <button id="selectPic" class="addPhotoContent" value="Select/Take Picture" onclick="openFileChooser()">
+                            
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span class="addImageTitle">Add Photo </span>
                                 <span id="imgUploadStatus" class="glyphicon glyphicon-unchecked"></span>
-                            </div>
+                            
                         </button>
                     </div>
                 </div>
@@ -366,8 +361,8 @@
                         <div class="sumInfo1">
                             <h4>Carriage</h4>
                             <h4>Location</h4>
-                            <h4 id="sumCarNo" class="sumPageInfo"></h4>
-                            <h4 id="sumLoc" class="sumPageInfo"></h4>
+                            <h4 id="sumCarNo" class="sumPageInfo">sum car no</h4>
+                            <h4 id="sumLoc" class="sumPageInfo">sum loc</h4>
                         </div>
                         <h4>Additional Information</h4>
                         <div class="sumInfo2">
@@ -375,9 +370,9 @@
                             <h4>Category - <span id="sumCat" class="sumPageInfo"></span>
                             </h4>
                             <h4>Description</h4>
-                            <h4 id="sumDes" class="sumPageInfo"></h4>
+                            <h4 id="sumDes" class="sumPageInfo">sum des</h4>
                         </div>
-                        <img id="sumImg" src="" alt="" />
+                        <img id="sumImg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" alt="summary image not loading - may not exist" />
                     </div>
 
                 </div>
@@ -481,7 +476,7 @@
         <!-- Update Fault Page 2a
               
     -->
-        <div class="section uf-2a current fade">
+        <div class="section uf-2a">
             <div class="title">
                 <h4 class="stepTitle">Update Fault</h4>
                 <button class="info" onclick=pageInfo()>
@@ -489,14 +484,14 @@
                 </button>
             </div>
             <div class="sectionArea large">
-                <div id="assignedFaults" class="content">
+                <div class="content">
                     <div class="sumInfo">
                         <h4>Location Details</h4>
                         <div class="sumInfo1">
                             <h4>Carriage</h4>
                             <h4>Location</h4>
-                            <h4 id="updateCarNo" class="sumPageInfo"></h4>
-                            <h4 id="updateLoc" class="sumPageInfo"></h4>
+                            <h4 id="updateCarNo" class="sumPageInfo">update car no</h4>
+                            <h4 id="updateLoc" class="sumPageInfo">update loc</h4>
                         </div>
                         <h4>Additional Information</h4>
                         <div class="sumInfo2">
@@ -504,9 +499,9 @@
                             <h4>Date - <span id="updateDate" class="sumPageInfo"></span></h4>
                             <h4>Category - <span id="updateCat" class="sumPageInfo"></span></h4>
                             <h4 class='uf2a-title'>Description</h4>
-                            <h4 id="updateDes" class="sumPageInfo"></h4>
+                            <h4 id="updateDes" class="sumPageInfo">update description</h4>
                         </div>
-                        <img id="updateImg" src="" alt="" />
+                        <img id="updateImg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" alt="update image not loading - may not exist" />
                     </div>
                 </div>
             </div>
@@ -539,7 +534,7 @@
                             <h4 class="filtCat">Fault Category</h4>
                             <input class="filtCarNo" id="carriagenoFilter" type="text" placeholder="carriage number" />
                             <select size="1" id="categoryFilter" class="filtCat">
-                                <option value="none"></option>
+                                <option value="none">&nbsp;</option>
                                 <option value="wifi">WiFi</option>
                                 <option value="socket">Plug Socket</option>
                                 <option value="toilet">Toilet</option>
@@ -553,7 +548,7 @@
                             <h4 class="filtStat">Status</h4>
                             <h4 class="filtDate">Date Reported</h4>
                             <select size="1" class="filtStat" id="statusFilter">
-                                <option value="none"></option>
+                                <option value="none">&nbsp;</option>
                                 <option value="R">Reported</option>
                                 <option value="I">In Progress</option>
                                 <option value="C">Complete</option>
@@ -564,10 +559,10 @@
                 </div>
             </div>
             <div class="footer split">
-                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3a', 'uf-1')">
+                <button class="footerBtn leftBtn" id="uf-3aBack" onclick="switchPages('uf-3a', 'uf-1')">
                     Back
                 </button>
-                <button class="footerBtn rightBtn" id="uf-3Next" onclick="switchPages('uf-3a', 'uf-3b'); setFilters()">
+                <button class="footerBtn rightBtn" id="uf-3aNext" onclick="switchPages('uf-3a', 'uf-3b'); setFilters()">
                     Search
                 </button>
             </div>
@@ -577,12 +572,12 @@
             <div id="uf-3b-title" class="title">
                 <div class="setSearchFilters">
                     <button id="filtNavBut" onclick="filtNav()" value="open">Filters</button>
-                    <div id="filtToggle" class="filters hidden ">
+                    <div id="filtToggle" class="filters hidden fix">
                         <h4 class="filtCarNo">Carriage Number</h4>
                         <h4 class="filtCat">Fault Category</h4>
                         <input class="filtCarNo" id="carriagenoRefilter" type="text" placeholder="carriage number" />
                         <select size="1" id="categoryRefilter" class="filtCat">
-                            <option value="none"></option>
+                            <option value="none">&nbsp;</option>
                             <option value="wifi">WiFi</option>
                             <option value="socket">Plug Socket</option>
                             <option value="toilet">Toilet</option>
@@ -596,7 +591,7 @@
                         <h4 class="filtStat">Status</h4>
                         <h4 class="filtDate">Date Reported</h4>
                         <select size="1" class="filtStat" id="statusRefilter">
-                            <option value="none"></option>
+                            <option value="none">&nbsp;</option>
                             <option value="R">Reported</option>
                             <option value="I">In Progress</option>
                             <option value="C">Complete</option>
@@ -606,14 +601,15 @@
                 </div>
             </div>
             <div class="sectionArea large">
-                <div id="updateFaults" class="content">
+                <div id="allocateFaults" class="content">
+				
                 </div>
             </div>
             <div class="footer split">
-                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-3b', 'uf-1')">
+                <button class="footerBtn leftBtn" id="uf-3bBack" onclick="switchPages('uf-3b', 'uf-1')">
                     Back
                 </button>
-                <button class="footerBtn rightBtn" id="uf-3Next" onclick="resetFilters()">
+                <button class="footerBtn rightBtn" id="uf-3bNext" onclick="resetFilters()">
                     Search
                 </button>
             </div>
@@ -631,8 +627,8 @@
                         <div class="sumInfo1">
                             <h4>Carriage</h4>
                             <h4>Location</h4>
-                            <h4 id="uf4-carriageno" class="sumPageInfo"></h4>
-                            <h4 id="uf4-location" class="sumPageInfo"></h4>
+                            <h4 id="uf4-carriageno" class="sumPageInfo">carriage no</h4>
+                            <h4 id="uf4-location" class="sumPageInfo">location</h4>
                         </div>
                         <h4>Additional Information</h4>
                         <div class="sumInfo2">
@@ -642,13 +638,13 @@
                                 Category - <span id="uf4-category" class="sumPageInfo"></span>
                             </h4>
                             <h4 class="uf4-title">Description</h4>
-                            <h4 id="uf4-faultdesc" class="sumPageInfo"></h4>
+                            <h4 id="uf4-faultdesc" class="sumPageInfo">fault desc</h4>
                         </div>
-                        <img id="uf4-img" src="" alt="" />
+                        <img id="uf4-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" alt="fault image not loading - may not exist" />
                     </div>
                 </div>
                 </div>
-            <div class="footer split">
+            <div id="allocateFooter" class="footer split">
                 <button class="footerBtn leftBtn" id="uf-4Back" onclick="switchPages('uf-4', 'uf-3b')">
                     Back
                 </button>

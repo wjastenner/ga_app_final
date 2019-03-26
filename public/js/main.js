@@ -98,7 +98,7 @@ $(function () {
     
 });
 
-var ngrokRan = '11417996';
+var ngrokRan = 'c8ff1b27';
 var ngrok = 'http://' + ngrokRan + '.ngrok.io';
 
 var localhost = 'http://localhost:3000';
@@ -374,14 +374,14 @@ function submitForm() {
             console.log(rt);
             console.log("data submitted");
             var returnedData = JSON.parse(rt);
+			
             if (returnedData.success) {
                 localStorage.removeItem('reportFault');
-                reset();
-                switchPages('rf-5', 'rf-6');
-                var reportFault = JSON.parse(localStorage.getItem('reportFault'));
-                reportFault.faultNo = returnedData.fault_no;
-                setLocalStorage('reportFault',JSON.stringify(reportFault));
-                $("#refNo").text(returnedData.fault_no);
+                
+				console.log(returnedData);
+                $("#refNo").text(" #" + returnedData.fault_no);
+				reset();
+				switchPages('rf-5', 'rf-6');
             }
         },
         error: function () {
@@ -500,29 +500,39 @@ function getFaultForAllocation(faultNo) {
             $('#uf4-location').html(fault.location.charAt(0).toUpperCase() + fault.location.slice(1));
             $('#uf4-faultdesc').html(fault.faultdesc);
             $('#uf4-img').attr('src', fault.img);
+            
 
+            // create item in storage containing selected fault
+            localStorage.setItem('selectedFault', JSON.stringify(fault));
+			$('#allocateFooter').addClass('split');
+			$('#uf-4Next').show();
             switch (fault.status) {
                 case 'R':
                     fault.status = "Reported";
+					$('#uf4-status').html(fault.status);
+					switchPages('uf-3b', 'uf-4');
                     break;
                 case 'I':
                     fault.status = "In Progress";
+					$('#uf4-status').html(fault.status);
+					switchPages('uf-3b', 'uf-4');
                     break;
                 case 'C':
                     fault.status = "Completed";
+					$('#allocateFooter').removeClass('split');
+					$('#uf-4Next').hide();
+					switchPages('uf-3b', 'uf-4');
                     break;
             }
 
-            // create item in storage containing
-            localStorage.setItem('selectedFault', JSON.stringify(fault));
 
-            $('#uf4-status').html(fault.status);
+			
         },
         error: function () {
             console.log("error");
         }
     });
-    switchPages('uf-3b', 'uf-4');
+    
 }
 
 
@@ -626,29 +636,42 @@ function filterFaults() {
         data: json,
         success: function (rt) {
             var faults = JSON.parse(rt);
-            if (loadFaultCount == 0) {
-                $("#updateFaults").empty();
-            }
+            //if (loadFaultCount == 0) {
+              //  $("#allocateFaults").empty();
+            //}
+			 $("#allocateFaults").empty();
             for (var key in faults) {
                 var fault = faults[key];
+				var statusColour;
                 switch (fault.status) {
                     case 'R':
                         fault.status = "Reported";
+						statusColour = 'red';
                         break;
                     case 'I':
                         fault.status = "In Progress";
+						statusColour = 'yellow';
                         break;
                     case 'C':
                         fault.status = "Completed";
+						statusColour = 'green';
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='getFaultForAllocation(" + fault.faultno + ")'>"
-                    + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
-                    + "<h4>" + fault.faultdesc + " </h4>"
-                    + "</a>";
+           //     var str = "<a class='filters' id='faultNo" + fault.faultno + "' onclick='getFaultForAllocation(" + fault.faultno + ")'>"
+           //         + "<h3>" + fault.carriageno + " - " + fault.category + " </h3>"
+           //         + "<h4>" + fault.faultdesc + " </h4>"
+           //         + "</a>";
                 //console.log(str);
-                $('#updateFaults').append(str);
+               // $('#updateFaults').append(str);
+				
+				var str = "<a id='faultNo" + fault.faultno + "' class='filters' onclick='getFaultForAllocation(" + fault.faultno + ")'>"
+                    + "<div class='filters-grid'><div class='h3'>" + fault.carriageno + " - " + fault.category + " </div>"
+                    + "<div class='h4'>" + fault.faultdesc + " </div>"
+                    + "<div class='statusBlob " + statusColour + "'></div>"
+                    + "<div class='statusText'>" + fault.status + "</div></div>"
+                    + "</a>";
+                $('#allocateFaults').append(str);
 
             }
             loadFaultCount += 1;
@@ -672,6 +695,7 @@ function filtNavToggle(toggle) {
         }, 0);
 
         setTimeout(function () {
+			$('#filtToggle').removeClass('fix');
             $('#filtToggle').addClass('fade');
         }, 500);
     } else {
@@ -682,6 +706,10 @@ function filtNavToggle(toggle) {
         setTimeout(function () {
             $('#filtToggle').addClass('hidden');
         }, 500);
+		
+		setTimeout(function () {
+            $('#filtToggle').addClass('fix');
+        }, 501);
         $('#filtNavBut').val('open');
     }
 }
@@ -1506,7 +1534,7 @@ function changeFaultStatus2() {
         success: function (rt) {
             closePopup();
             resetFilters();
-            switchPages('uf-4', 'uf-3b');
+            switchPages('uf-2a', 'uf-2');
         },
         error: function () {
             console.log("error");

@@ -34,6 +34,9 @@ header {
       margin-top: 5px; }
   header img {
     width: 220px; }
+  header #burger {
+    height: 30px;
+    width: 30px; }
 
 .main {
   height: calc(100% - 80px);
@@ -49,7 +52,7 @@ button {
   justify-self: center;
   font-size: 20px;
   color: white;
-  background-color: #b9b9b9; }
+  background-color: #949494; }
   button.show {
     background-color: #d70428; }
   button.hide {
@@ -124,7 +127,7 @@ button {
     .popup .footer .footerBtn {
       font-size: 1.5rem;
       background-color: white;
-      color: #3a3a3a;
+      color: #151515;
       border-radius: 5px;
       height: 100%;
       width: 100%;
@@ -146,7 +149,7 @@ button {
     max-width: 500px;
     background-color: none;
     color: black;
-    border: #b9b9b9 solid 2px;
+    border: #949494 solid 2px;
     text-align: center;
     padding: 5px;
     font-size: 1rem;
@@ -207,7 +210,7 @@ button {
   .section.footless {
     grid-template-rows: 60px auto; }
   .section .setSearchFilters {
-    background-color: #b9b9b9;
+    background-color: #949494;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
@@ -215,7 +218,8 @@ button {
     .section .setSearchFilters .filters {
       display: grid;
       grid-template-columns: 50% 50%;
-      grid-gap: 5px; }
+      grid-gap: 5px;
+      height: 100%; }
   .section .sumInfo {
     display: grid;
     grid-gap: 10px;
@@ -245,7 +249,7 @@ button {
       padding: 0px;
       box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.5); }
 
-.login .sectionArea .content, .findID .sectionArea .content, .options .sectionArea .content, .rf-1 .sectionArea .content, .rf-2 .sectionArea .content, .rf-3 .sectionArea .content, .rf-4 .sectionArea .content, .rf-5 .sectionArea .content, .rf-6 .sectionArea .content, .uf-1 .sectionArea .content, .uf-3a .sectionArea .content, .uf-4 .sectionArea .content, .uf-2a .sectionArea .content {
+.login .sectionArea .content, .findID .sectionArea .content, .options .sectionArea .content, .rf-1 .sectionArea .content, .rf-2 .sectionArea .content, .rf-3 .sectionArea .content, .rf-4 .sectionArea .content, .rf-5 .sectionArea .content, .rf-6 .sectionArea .content, .uf-1 .sectionArea .content, .uf-4 .sectionArea .content, .uf-2a .sectionArea .content {
   display: grid;
   align-self: end;
   justify-self: center;
@@ -253,65 +257,65 @@ button {
   width: 100%;
   max-width: 400px;
   padding: 0px; }
-  .login .sectionArea .content *, .findID .sectionArea .content *, .options .sectionArea .content *, .rf-1 .sectionArea .content *, .rf-2 .sectionArea .content *, .rf-3 .sectionArea .content *, .rf-4 .sectionArea .content *, .rf-5 .sectionArea .content *, .rf-6 .sectionArea .content *, .uf-1 .sectionArea .content *, .uf-3a .sectionArea .content *, .uf-4 .sectionArea .content *, .uf-2a .sectionArea .content * {
+  .login .sectionArea .content *, .findID .sectionArea .content *, .options .sectionArea .content *, .rf-1 .sectionArea .content *, .rf-2 .sectionArea .content *, .rf-3 .sectionArea .content *, .rf-4 .sectionArea .content *, .rf-5 .sectionArea .content *, .rf-6 .sectionArea .content *, .uf-1 .sectionArea .content *, .uf-4 .sectionArea .content *, .uf-2a .sectionArea .content * {
     align-self: center;
     justify-self: center; }
-  .login .sectionArea .content .sumInfo, .findID .sectionArea .content .sumInfo, .options .sectionArea .content .sumInfo, .rf-1 .sectionArea .content .sumInfo, .rf-2 .sectionArea .content .sumInfo, .rf-3 .sectionArea .content .sumInfo, .rf-4 .sectionArea .content .sumInfo, .rf-5 .sectionArea .content .sumInfo, .rf-6 .sectionArea .content .sumInfo, .uf-1 .sectionArea .content .sumInfo, .uf-3a .sectionArea .content .sumInfo, .uf-4 .sectionArea .content .sumInfo, .uf-2a .sectionArea .content .sumInfo {
-    background-color: #b9b9b9;
+  .login .sectionArea .content .sumInfo, .findID .sectionArea .content .sumInfo, .options .sectionArea .content .sumInfo, .rf-1 .sectionArea .content .sumInfo, .rf-2 .sectionArea .content .sumInfo, .rf-3 .sectionArea .content .sumInfo, .rf-4 .sectionArea .content .sumInfo, .rf-5 .sectionArea .content .sumInfo, .rf-6 .sectionArea .content .sumInfo, .uf-1 .sectionArea .content .sumInfo, .uf-4 .sectionArea .content .sumInfo, .uf-2a .sectionArea .content .sumInfo {
+    background-color: #949494;
     color: black;
     width: 100%;
     padding: 10px 20px;
     margin: 10px 0px;
     display: grid;
     border-radius: 5px; }
-    .login .sectionArea .content .sumInfo h4, .findID .sectionArea .content .sumInfo h4, .options .sectionArea .content .sumInfo h4, .rf-1 .sectionArea .content .sumInfo h4, .rf-2 .sectionArea .content .sumInfo h4, .rf-3 .sectionArea .content .sumInfo h4, .rf-4 .sectionArea .content .sumInfo h4, .rf-5 .sectionArea .content .sumInfo h4, .rf-6 .sectionArea .content .sumInfo h4, .uf-1 .sectionArea .content .sumInfo h4, .uf-3a .sectionArea .content .sumInfo h4, .uf-4 .sectionArea .content .sumInfo h4, .uf-2a .sectionArea .content .sumInfo h4 {
+    .login .sectionArea .content .sumInfo h4, .findID .sectionArea .content .sumInfo h4, .options .sectionArea .content .sumInfo h4, .rf-1 .sectionArea .content .sumInfo h4, .rf-2 .sectionArea .content .sumInfo h4, .rf-3 .sectionArea .content .sumInfo h4, .rf-4 .sectionArea .content .sumInfo h4, .rf-5 .sectionArea .content .sumInfo h4, .rf-6 .sectionArea .content .sumInfo h4, .uf-1 .sectionArea .content .sumInfo h4, .uf-4 .sectionArea .content .sumInfo h4, .uf-2a .sectionArea .content .sumInfo h4 {
       justify-self: start;
       font-size: 1rem;
       margin: 0; }
-    .login .sectionArea .content .sumInfo span, .findID .sectionArea .content .sumInfo span, .options .sectionArea .content .sumInfo span, .rf-1 .sectionArea .content .sumInfo span, .rf-2 .sectionArea .content .sumInfo span, .rf-3 .sectionArea .content .sumInfo span, .rf-4 .sectionArea .content .sumInfo span, .rf-5 .sectionArea .content .sumInfo span, .rf-6 .sectionArea .content .sumInfo span, .uf-1 .sectionArea .content .sumInfo span, .uf-3a .sectionArea .content .sumInfo span, .uf-4 .sectionArea .content .sumInfo span, .uf-2a .sectionArea .content .sumInfo span {
+    .login .sectionArea .content .sumInfo span, .findID .sectionArea .content .sumInfo span, .options .sectionArea .content .sumInfo span, .rf-1 .sectionArea .content .sumInfo span, .rf-2 .sectionArea .content .sumInfo span, .rf-3 .sectionArea .content .sumInfo span, .rf-4 .sectionArea .content .sumInfo span, .rf-5 .sectionArea .content .sumInfo span, .rf-6 .sectionArea .content .sumInfo span, .uf-1 .sectionArea .content .sumInfo span, .uf-4 .sectionArea .content .sumInfo span, .uf-2a .sectionArea .content .sumInfo span {
       justify-self: end; }
-  .login .sectionArea .content img, .findID .sectionArea .content img, .options .sectionArea .content img, .rf-1 .sectionArea .content img, .rf-2 .sectionArea .content img, .rf-3 .sectionArea .content img, .rf-4 .sectionArea .content img, .rf-5 .sectionArea .content img, .rf-6 .sectionArea .content img, .uf-1 .sectionArea .content img, .uf-3a .sectionArea .content img, .uf-4 .sectionArea .content img, .uf-2a .sectionArea .content img {
+  .login .sectionArea .content img, .findID .sectionArea .content img, .options .sectionArea .content img, .rf-1 .sectionArea .content img, .rf-2 .sectionArea .content img, .rf-3 .sectionArea .content img, .rf-4 .sectionArea .content img, .rf-5 .sectionArea .content img, .rf-6 .sectionArea .content img, .uf-1 .sectionArea .content img, .uf-4 .sectionArea .content img, .uf-2a .sectionArea .content img {
     width: 100%;
     border-radius: 5px; }
-  .login .sectionArea .content input[type=text], .findID .sectionArea .content input[type=text], .options .sectionArea .content input[type=text], .rf-1 .sectionArea .content input[type=text], .rf-2 .sectionArea .content input[type=text], .rf-3 .sectionArea .content input[type=text], .rf-4 .sectionArea .content input[type=text], .rf-5 .sectionArea .content input[type=text], .rf-6 .sectionArea .content input[type=text], .uf-1 .sectionArea .content input[type=text], .uf-3a .sectionArea .content input[type=text], .uf-4 .sectionArea .content input[type=text], .uf-2a .sectionArea .content input[type=text] {
+  .login .sectionArea .content input[type=text], .findID .sectionArea .content input[type=text], .options .sectionArea .content input[type=text], .rf-1 .sectionArea .content input[type=text], .rf-2 .sectionArea .content input[type=text], .rf-3 .sectionArea .content input[type=text], .rf-4 .sectionArea .content input[type=text], .rf-5 .sectionArea .content input[type=text], .rf-6 .sectionArea .content input[type=text], .uf-1 .sectionArea .content input[type=text], .uf-4 .sectionArea .content input[type=text], .uf-2a .sectionArea .content input[type=text] {
     height: 70px;
     width: calc(100% - 4px);
     max-width: 500px;
     background-color: none;
     color: black;
-    border: #b9b9b9 solid 2px;
+    border: #949494 solid 2px;
     text-align: center;
     padding: 5px;
     font-size: 1rem;
     border-radius: 5px; }
-    .login .sectionArea .content input[type=text]:focus, .findID .sectionArea .content input[type=text]:focus, .options .sectionArea .content input[type=text]:focus, .rf-1 .sectionArea .content input[type=text]:focus, .rf-2 .sectionArea .content input[type=text]:focus, .rf-3 .sectionArea .content input[type=text]:focus, .rf-4 .sectionArea .content input[type=text]:focus, .rf-5 .sectionArea .content input[type=text]:focus, .rf-6 .sectionArea .content input[type=text]:focus, .uf-1 .sectionArea .content input[type=text]:focus, .uf-3a .sectionArea .content input[type=text]:focus, .uf-4 .sectionArea .content input[type=text]:focus, .uf-2a .sectionArea .content input[type=text]:focus {
+    .login .sectionArea .content input[type=text]:focus, .findID .sectionArea .content input[type=text]:focus, .options .sectionArea .content input[type=text]:focus, .rf-1 .sectionArea .content input[type=text]:focus, .rf-2 .sectionArea .content input[type=text]:focus, .rf-3 .sectionArea .content input[type=text]:focus, .rf-4 .sectionArea .content input[type=text]:focus, .rf-5 .sectionArea .content input[type=text]:focus, .rf-6 .sectionArea .content input[type=text]:focus, .uf-1 .sectionArea .content input[type=text]:focus, .uf-4 .sectionArea .content input[type=text]:focus, .uf-2a .sectionArea .content input[type=text]:focus {
       box-shadow: 0px 0px 2px 2px rgba(215, 4, 40, 0.5); }
-  .login .sectionArea .content .stepDescription, .findID .sectionArea .content .stepDescription, .options .sectionArea .content .stepDescription, .rf-1 .sectionArea .content .stepDescription, .rf-2 .sectionArea .content .stepDescription, .rf-3 .sectionArea .content .stepDescription, .rf-4 .sectionArea .content .stepDescription, .rf-5 .sectionArea .content .stepDescription, .rf-6 .sectionArea .content .stepDescription, .uf-1 .sectionArea .content .stepDescription, .uf-3a .sectionArea .content .stepDescription, .uf-4 .sectionArea .content .stepDescription, .uf-2a .sectionArea .content .stepDescription {
+  .login .sectionArea .content .stepDescription, .findID .sectionArea .content .stepDescription, .options .sectionArea .content .stepDescription, .rf-1 .sectionArea .content .stepDescription, .rf-2 .sectionArea .content .stepDescription, .rf-3 .sectionArea .content .stepDescription, .rf-4 .sectionArea .content .stepDescription, .rf-5 .sectionArea .content .stepDescription, .rf-6 .sectionArea .content .stepDescription, .uf-1 .sectionArea .content .stepDescription, .uf-4 .sectionArea .content .stepDescription, .uf-2a .sectionArea .content .stepDescription {
     line-height: 1.5; }
-  .login .sectionArea .content h4, .findID .sectionArea .content h4, .options .sectionArea .content h4, .rf-1 .sectionArea .content h4, .rf-2 .sectionArea .content h4, .rf-3 .sectionArea .content h4, .rf-4 .sectionArea .content h4, .rf-5 .sectionArea .content h4, .rf-6 .sectionArea .content h4, .uf-1 .sectionArea .content h4, .uf-3a .sectionArea .content h4, .uf-4 .sectionArea .content h4, .uf-2a .sectionArea .content h4 {
+  .login .sectionArea .content h4, .findID .sectionArea .content h4, .options .sectionArea .content h4, .rf-1 .sectionArea .content h4, .rf-2 .sectionArea .content h4, .rf-3 .sectionArea .content h4, .rf-4 .sectionArea .content h4, .rf-5 .sectionArea .content h4, .rf-6 .sectionArea .content h4, .uf-1 .sectionArea .content h4, .uf-4 .sectionArea .content h4, .uf-2a .sectionArea .content h4 {
     margin-bottom: 20px; }
-  .login .sectionArea .content h5, .findID .sectionArea .content h5, .options .sectionArea .content h5, .rf-1 .sectionArea .content h5, .rf-2 .sectionArea .content h5, .rf-3 .sectionArea .content h5, .rf-4 .sectionArea .content h5, .rf-5 .sectionArea .content h5, .rf-6 .sectionArea .content h5, .uf-1 .sectionArea .content h5, .uf-3a .sectionArea .content h5, .uf-4 .sectionArea .content h5, .uf-2a .sectionArea .content h5 {
+  .login .sectionArea .content h5, .findID .sectionArea .content h5, .options .sectionArea .content h5, .rf-1 .sectionArea .content h5, .rf-2 .sectionArea .content h5, .rf-3 .sectionArea .content h5, .rf-4 .sectionArea .content h5, .rf-5 .sectionArea .content h5, .rf-6 .sectionArea .content h5, .uf-1 .sectionArea .content h5, .uf-4 .sectionArea .content h5, .uf-2a .sectionArea .content h5 {
     margin: 5px 0px 0px 0px;
     opacity: 0.7;
     text-align: center; }
-  .login .sectionArea .content a, .findID .sectionArea .content a, .options .sectionArea .content a, .rf-1 .sectionArea .content a, .rf-2 .sectionArea .content a, .rf-3 .sectionArea .content a, .rf-4 .sectionArea .content a, .rf-5 .sectionArea .content a, .rf-6 .sectionArea .content a, .uf-1 .sectionArea .content a, .uf-3a .sectionArea .content a, .uf-4 .sectionArea .content a, .uf-2a .sectionArea .content a {
+  .login .sectionArea .content a, .findID .sectionArea .content a, .options .sectionArea .content a, .rf-1 .sectionArea .content a, .rf-2 .sectionArea .content a, .rf-3 .sectionArea .content a, .rf-4 .sectionArea .content a, .rf-5 .sectionArea .content a, .rf-6 .sectionArea .content a, .uf-1 .sectionArea .content a, .uf-4 .sectionArea .content a, .uf-2a .sectionArea .content a {
     text-decoration: underline;
     margin: 5px 0px 15px 0px; }
-  .login .sectionArea .content .textarea, .findID .sectionArea .content .textarea, .options .sectionArea .content .textarea, .rf-1 .sectionArea .content .textarea, .rf-2 .sectionArea .content .textarea, .rf-3 .sectionArea .content .textarea, .rf-4 .sectionArea .content .textarea, .rf-5 .sectionArea .content .textarea, .rf-6 .sectionArea .content .textarea, .uf-1 .sectionArea .content .textarea, .uf-3a .sectionArea .content .textarea, .uf-4 .sectionArea .content .textarea, .uf-2a .sectionArea .content .textarea {
+  .login .sectionArea .content .textarea, .findID .sectionArea .content .textarea, .options .sectionArea .content .textarea, .rf-1 .sectionArea .content .textarea, .rf-2 .sectionArea .content .textarea, .rf-3 .sectionArea .content .textarea, .rf-4 .sectionArea .content .textarea, .rf-5 .sectionArea .content .textarea, .rf-6 .sectionArea .content .textarea, .uf-1 .sectionArea .content .textarea, .uf-4 .sectionArea .content .textarea, .uf-2a .sectionArea .content .textarea {
     display: none;
     grid-template-rows: auto auto;
     width: 100%;
     margin: 0px;
     padding: 0px; }
-    .login .sectionArea .content .textarea.show, .findID .sectionArea .content .textarea.show, .options .sectionArea .content .textarea.show, .rf-1 .sectionArea .content .textarea.show, .rf-2 .sectionArea .content .textarea.show, .rf-3 .sectionArea .content .textarea.show, .rf-4 .sectionArea .content .textarea.show, .rf-5 .sectionArea .content .textarea.show, .rf-6 .sectionArea .content .textarea.show, .uf-1 .sectionArea .content .textarea.show, .uf-3a .sectionArea .content .textarea.show, .uf-4 .sectionArea .content .textarea.show, .uf-2a .sectionArea .content .textarea.show {
+    .login .sectionArea .content .textarea.show, .findID .sectionArea .content .textarea.show, .options .sectionArea .content .textarea.show, .rf-1 .sectionArea .content .textarea.show, .rf-2 .sectionArea .content .textarea.show, .rf-3 .sectionArea .content .textarea.show, .rf-4 .sectionArea .content .textarea.show, .rf-5 .sectionArea .content .textarea.show, .rf-6 .sectionArea .content .textarea.show, .uf-1 .sectionArea .content .textarea.show, .uf-4 .sectionArea .content .textarea.show, .uf-2a .sectionArea .content .textarea.show {
       display: grid;
       height: 100px; }
-    .login .sectionArea .content .textarea .textareaCounter, .findID .sectionArea .content .textarea .textareaCounter, .options .sectionArea .content .textarea .textareaCounter, .rf-1 .sectionArea .content .textarea .textareaCounter, .rf-2 .sectionArea .content .textarea .textareaCounter, .rf-3 .sectionArea .content .textarea .textareaCounter, .rf-4 .sectionArea .content .textarea .textareaCounter, .rf-5 .sectionArea .content .textarea .textareaCounter, .rf-6 .sectionArea .content .textarea .textareaCounter, .uf-1 .sectionArea .content .textarea .textareaCounter, .uf-3a .sectionArea .content .textarea .textareaCounter, .uf-4 .sectionArea .content .textarea .textareaCounter, .uf-2a .sectionArea .content .textarea .textareaCounter {
+    .login .sectionArea .content .textarea .textareaCounter, .findID .sectionArea .content .textarea .textareaCounter, .options .sectionArea .content .textarea .textareaCounter, .rf-1 .sectionArea .content .textarea .textareaCounter, .rf-2 .sectionArea .content .textarea .textareaCounter, .rf-3 .sectionArea .content .textarea .textareaCounter, .rf-4 .sectionArea .content .textarea .textareaCounter, .rf-5 .sectionArea .content .textarea .textareaCounter, .rf-6 .sectionArea .content .textarea .textareaCounter, .uf-1 .sectionArea .content .textarea .textareaCounter, .uf-4 .sectionArea .content .textarea .textareaCounter, .uf-2a .sectionArea .content .textarea .textareaCounter {
       margin: 0px;
       margin-left: 3px;
       justify-self: left;
       opacity: 0.5; }
-  .login .sectionArea .content textarea, .findID .sectionArea .content textarea, .options .sectionArea .content textarea, .rf-1 .sectionArea .content textarea, .rf-2 .sectionArea .content textarea, .rf-3 .sectionArea .content textarea, .rf-4 .sectionArea .content textarea, .rf-5 .sectionArea .content textarea, .rf-6 .sectionArea .content textarea, .uf-1 .sectionArea .content textarea, .uf-3a .sectionArea .content textarea, .uf-4 .sectionArea .content textarea, .uf-2a .sectionArea .content textarea {
+  .login .sectionArea .content textarea, .findID .sectionArea .content textarea, .options .sectionArea .content textarea, .rf-1 .sectionArea .content textarea, .rf-2 .sectionArea .content textarea, .rf-3 .sectionArea .content textarea, .rf-4 .sectionArea .content textarea, .rf-5 .sectionArea .content textarea, .rf-6 .sectionArea .content textarea, .uf-1 .sectionArea .content textarea, .uf-4 .sectionArea .content textarea, .uf-2a .sectionArea .content textarea {
     display: grid;
     width: calc(100% - 4px);
     justify-self: center;
@@ -324,9 +328,9 @@ button {
     font-size: 1rem;
     color: black;
     line-height: 1.5; }
-    .login .sectionArea .content textarea::placeholder, .findID .sectionArea .content textarea::placeholder, .options .sectionArea .content textarea::placeholder, .rf-1 .sectionArea .content textarea::placeholder, .rf-2 .sectionArea .content textarea::placeholder, .rf-3 .sectionArea .content textarea::placeholder, .rf-4 .sectionArea .content textarea::placeholder, .rf-5 .sectionArea .content textarea::placeholder, .rf-6 .sectionArea .content textarea::placeholder, .uf-1 .sectionArea .content textarea::placeholder, .uf-3a .sectionArea .content textarea::placeholder, .uf-4 .sectionArea .content textarea::placeholder, .uf-2a .sectionArea .content textarea::placeholder {
+    .login .sectionArea .content textarea::placeholder, .findID .sectionArea .content textarea::placeholder, .options .sectionArea .content textarea::placeholder, .rf-1 .sectionArea .content textarea::placeholder, .rf-2 .sectionArea .content textarea::placeholder, .rf-3 .sectionArea .content textarea::placeholder, .rf-4 .sectionArea .content textarea::placeholder, .rf-5 .sectionArea .content textarea::placeholder, .rf-6 .sectionArea .content textarea::placeholder, .uf-1 .sectionArea .content textarea::placeholder, .uf-4 .sectionArea .content textarea::placeholder, .uf-2a .sectionArea .content textarea::placeholder {
       font-size: 1rem; }
-    .login .sectionArea .content textarea:focus, .findID .sectionArea .content textarea:focus, .options .sectionArea .content textarea:focus, .rf-1 .sectionArea .content textarea:focus, .rf-2 .sectionArea .content textarea:focus, .rf-3 .sectionArea .content textarea:focus, .rf-4 .sectionArea .content textarea:focus, .rf-5 .sectionArea .content textarea:focus, .rf-6 .sectionArea .content textarea:focus, .uf-1 .sectionArea .content textarea:focus, .uf-3a .sectionArea .content textarea:focus, .uf-4 .sectionArea .content textarea:focus, .uf-2a .sectionArea .content textarea:focus {
+    .login .sectionArea .content textarea:focus, .findID .sectionArea .content textarea:focus, .options .sectionArea .content textarea:focus, .rf-1 .sectionArea .content textarea:focus, .rf-2 .sectionArea .content textarea:focus, .rf-3 .sectionArea .content textarea:focus, .rf-4 .sectionArea .content textarea:focus, .rf-5 .sectionArea .content textarea:focus, .rf-6 .sectionArea .content textarea:focus, .uf-1 .sectionArea .content textarea:focus, .uf-4 .sectionArea .content textarea:focus, .uf-2a .sectionArea .content textarea:focus {
       outline: none;
       box-shadow: 0px 0px 2px 2px rgba(215, 4, 40, 0.5); }
 
@@ -341,7 +345,7 @@ button {
     height: 70px;
     max-width: 500px; }
     .options .sectionArea .content .optionBtn:focus {
-      background-color: #6d6d6d; }
+      background-color: #484848; }
 
 .rf-2 .sectionArea .content {
   padding-bottom: 5px; }
@@ -361,7 +365,7 @@ button {
     grid-gap: 5px;
     margin: 5px 0px; }
   .rf-3 .sectionArea .content button:active {
-    background-color: #6d6d6d; }
+    background-color: #484848; }
   .rf-3 .sectionArea .content .additionalDescription {
     width: 100%; }
     .rf-3 .sectionArea .content .additionalDescription .stepDescription {
@@ -393,7 +397,7 @@ button {
 
 .rf-4 .sectionArea .content .seatInfo {
   width: 100%;
-  background-color: #b9b9b9;
+  background-color: #949494;
   padding: 0px 10px;
   border-radius: 5px;
   display: grid;
@@ -414,7 +418,7 @@ button {
   .rf-4 .sectionArea .content .numberPad * {
     height: 100%; }
     .rf-4 .sectionArea .content .numberPad *:active {
-      background-color: #6d6d6d; }
+      background-color: #484848; }
   .rf-4 .sectionArea .content .numberPad #minus:active {
     background-color: #8c031a; }
   .rf-4 .sectionArea .content .numberPad #minus {
@@ -466,14 +470,14 @@ button {
     grid-template-areas: 'h3a blob status' 'h4a blob status';
     text-align: left;
     border: none;
-    border-color: #b9b9b9;
-    background-color: #b9b9b9;
+    border-color: #949494;
+    background-color: #949494;
     border-radius: 5px;
     color: white;
     width: 100%;
     align-self: end; }
     .uf-2 .content .filters:active {
-      background-color: #a0a0a0; }
+      background-color: #7b7b7b; }
     .uf-2 .content .filters #detImg {
       height: 100%;
       width: 100%; }
@@ -492,58 +496,58 @@ button {
       grid-area: status;
       text-align: center; }
 
-.vf-1 .content {
+.vf-1 .content, .uf-3b .content {
   display: grid;
   grid-gap: 10px;
   height: 100%; }
-  .vf-1 .content * {
+  .vf-1 .content *, .uf-3b .content * {
     padding: 5px;
     align-self: center; }
-  .vf-1 .content .green {
+  .vf-1 .content .green, .uf-3b .content .green {
     border-radius: 50%;
     border-color: green;
     background-color: green; }
-  .vf-1 .content .yellow {
+  .vf-1 .content .yellow, .uf-3b .content .yellow {
     border: solid;
     border-radius: 50%;
     border-color: yellow;
     background-color: yellow; }
-  .vf-1 .content .red {
+  .vf-1 .content .red, .uf-3b .content .red {
     border: solid;
     border-radius: 50%;
     border-color: #d70428;
     background-color: #d70428; }
-  .vf-1 .content .filters {
+  .vf-1 .content .filters, .uf-3b .content .filters {
     align-self: end;
     text-align: left;
     border: none;
-    border-color: #b9b9b9;
-    background-color: #b9b9b9;
+    border-color: #949494;
+    background-color: #949494;
     border-radius: 5px;
     color: white;
     width: 100%; }
-    .vf-1 .content .filters:active {
-      background-color: #a0a0a0; }
-    .vf-1 .content .filters #detImg {
+    .vf-1 .content .filters:active, .uf-3b .content .filters:active {
+      background-color: #7b7b7b; }
+    .vf-1 .content .filters #detImg, .uf-3b .content .filters #detImg {
       height: 70%;
       width: 100%;
       border-radius: 5px; }
-    .vf-1 .content .filters .filters-grid {
+    .vf-1 .content .filters .filters-grid, .uf-3b .content .filters .filters-grid {
       display: grid;
       grid-template-columns: 50% 10% 40%;
       grid-template-areas: 'h3a blob status' 'h4a blob status'; }
-      .vf-1 .content .filters .filters-grid .h3 {
+      .vf-1 .content .filters .filters-grid .h3, .uf-3b .content .filters .filters-grid .h3 {
         text-align: left;
         grid-area: h3a; }
-      .vf-1 .content .filters .filters-grid .h4 {
+      .vf-1 .content .filters .filters-grid .h4, .uf-3b .content .filters .filters-grid .h4 {
         text-align: left;
         grid-area: h4a; }
-      .vf-1 .content .filters .filters-grid .statusBlob {
+      .vf-1 .content .filters .filters-grid .statusBlob, .uf-3b .content .filters .filters-grid .statusBlob {
         float: right;
         grid-area: blob;
         height: 30px;
         width: 30px; }
-      .vf-1 .content .filters .filters-grid .statusText {
+      .vf-1 .content .filters .filters-grid .statusText, .uf-3b .content .filters .filters-grid .statusText {
         grid-area: status;
         text-align: center; }
 
@@ -697,7 +701,7 @@ h5 {
     width: 50px;
     text-align: center;
     padding: 0;
-    box-shadow: 0px 0px 5px 4px rgba(185, 185, 185, 0.5); }
+    box-shadow: 0px 0px 5px 4px rgba(148, 148, 148, 0.5); }
   .sideNav.show {
     width: 250px; }
     .sideNav.show .link {
@@ -711,55 +715,47 @@ h5 {
     height: 70px;
     max-width: 500px; }
     .uf-1 .sectionArea .content .optionBtn:focus {
-      background-color: #6d6d6d; }
+      background-color: #484848; }
 
-.uf-3a .sectionArea .content {
-  padding-bottom: 0px;
-  grid-row-gap: 5px;
-  align-self: end; }
-  .uf-3a .sectionArea .content .hidden {
-    display: none; }
+.uf-3a {
+  width: 95%; }
+  .uf-3a .sectionArea .content {
+    padding-bottom: 0px;
+    grid-row-gap: 5px;
+    align-self: end;
+    width: 95%; }
+    .uf-3a .sectionArea .content .hidden {
+      display: none; }
+  .uf-3a .footer {
+    width: 95%; }
 
-.uf-3b .title {
-  position: relative;
-  z-index: 1000;
-  display: grid;
-  grid-template-columns: auto; }
-  .uf-3b .title .setSearchFilters {
-    border: solid;
-    border-color: black;
-    width: 100%; }
-  .uf-3b .title button {
-    color: black; }
-  .uf-3b .title #filtToggle {
-    height: 200px;
-    transition: all 1s;
-    opacity: 0; }
-    .uf-3b .title #filtToggle.hidden {
-      height: 0px; }
-    .uf-3b .title #filtToggle.fade {
-      opacity: 1; }
-
-.uf-3b .sectionArea .content {
-  padding-bottom: 0px;
-  grid-row-gap: 5px;
-  align-self: end; }
-  .uf-3b .sectionArea .content .filters {
-    display: block;
-    text-align: left;
-    margin: 10px;
-    padding: 10px;
-    border: none;
-    border-color: #b9b9b9;
-    background-color: #b9b9b9;
-    border-radius: 5px;
-    color: white;
-    width: 100%; }
-    .uf-3b .sectionArea .content .filters:active {
-      background-color: #a0a0a0; }
-    .uf-3b .sectionArea .content .filters #detImg {
-      height: 100%;
-      width: 100%; }
+.uf-3b {
+  width: 95%; }
+  .uf-3b .title {
+    position: relative;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: auto; }
+    .uf-3b .title .setSearchFilters {
+      border: solid;
+      border-color: black;
+      width: 95%; }
+    .uf-3b .title button {
+      color: black; }
+    .uf-3b .title #filtToggle {
+      height: 200px;
+      transition: all 1s;
+      opacity: 0; }
+      .uf-3b .title #filtToggle.hidden {
+        height: 0px; }
+      .uf-3b .title #filtToggle.fade {
+        opacity: 1; }
+      .uf-3b .title #filtToggle.fix {
+        display: none; }
+  .uf-3b .content .filters {
+    width: 95% !important; }
+  .uf-3b .footer {
+    width: 95%; }
 
 .uf-4 .sectionArea .content {
   /*
