@@ -30,8 +30,8 @@
         <a href="javascript:void(0)" class="closeBtn" onclick="sideNav('toggle')">&times;</a>
         <div class="optionLinks">
             <a class="link rf-1" href="#" onclick="sideNav('rf-1')">Report a Fault</a>
-            <a class="link vf-1" href="#" onclick="sideNav('vf-1')">View my Faults</a>
-            <a class="link uf-1" href="#" onclick="sideNav('uf-1')">Update a Fault</a>
+            <a class="link vf-1" href="#" onclick="sideNav('vf-1')">View my Reports</a>
+            <a class="link uf-1" href="#" onclick="sideNav('uf-1')">Manage Faults</a>
         </div>
         <div class="accessibility">
             <a class="link" id="signOut" href="javascript:void(0)" onclick="sideNav('signOut')">Sign
@@ -123,14 +123,12 @@
 
                     <button class="optionBtn" value="View a Fault"
                             onclick="switchPages('options', 'vf-1'); getUsersFaults();">
-                        View a
-                        Fault
+                        View my Reports
                     </button>
 
                     <button class="optionBtn" value="Update a Fault"
                             onclick="switchPages('options', 'uf-1'); setFilters();">
-                        Update a
-                        Fault
+                        Manage Faults
                     </button>
                 </div>
             </div>
@@ -140,7 +138,7 @@
                 Enter carriage Number. If they dont know it they can choose
                 to enter different details about the train to locate it.
     -->
-        <div class="section rf-1 current fade">
+        <div class="section rf-1">
             <div class="title">
                 <h4 class="stepTitle">Step 1/5 - Enter Carriage Number</h4>
                 <button class="info" onclick="openPopup('rf-1')">
@@ -303,7 +301,7 @@
             </div>
             <div class="sectionArea large">
                 <div class="content">
-                    <div class="faultLocator seats show" id="seats">
+                    <div class="faultLocator seats" id="seats">
                         <h4 class="stepDescription">
                             Please select the closest seat to the fault using the number
                             pad below.
@@ -334,14 +332,11 @@
                             <button class="numberPadBtn" id="minus" onclick="typeNum('-1')">&#171;</button>
                         </div>
                     </div>
-                    <div class="faultLocator region" id="region">
+                    <div class="faultLocator region show" id="region">
                         <h3>Please select the region of the train the fault was in:</h3>
-                        <input type="button" value="Option 1" />
-                        <input type="button" value="Option 2" />
-                        <input type="button" value="Option 3" />
-                        <input type="button" value="Option 4" />
-                        <h4>Please state the seat row:</h4>
-                        <!--<input type="text" name="" />-->
+                        <div class="container">
+                            <canvas id="carriageImage" width="100" height="500"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -391,7 +386,7 @@
                 <button class="footerBtn leftBtn" onclick="back('rf-5')">
                     Back
                 </button>
-                <button class="footerBtn rightBtn" onclick="checkInput('rf-5')">
+                <button class="footerBtn rightBtn" id="submitFaultBtn" onclick="checkInput('rf-5')">
                     Submit
                 </button>
             </div>
@@ -474,7 +469,6 @@
             </div>
             <div class="sectionArea large">
                 <div id="assignedFaults" class="content">
-
                 </div>
             </div>
             <div class="footer">
@@ -487,7 +481,7 @@
         <!-- Update Fault Page 2a
               
     -->
-        <div class="section uf-2a">
+        <div class="section uf-2a current fade">
             <div class="title">
                 <h4 class="stepTitle">Update Fault</h4>
                 <button class="info" onclick=pageInfo()>
@@ -496,12 +490,32 @@
             </div>
             <div class="sectionArea large">
                 <div id="assignedFaults" class="content">
-                    modified summary page to go here.
+                    <div class="sumInfo">
+                        <h4>Location Details</h4>
+                        <div class="sumInfo1">
+                            <h4>Carriage</h4>
+                            <h4>Location</h4>
+                            <h4 id="updateCarNo" class="sumPageInfo"></h4>
+                            <h4 id="updateLoc" class="sumPageInfo"></h4>
+                        </div>
+                        <h4>Additional Information</h4>
+                        <div class="sumInfo2">
+                            <h4 class="uf2a-title status">Status - <span id="updateStatus"></span></h4>
+                            <h4>Date - <span id="updateDate" class="sumPageInfo"></span></h4>
+                            <h4>Category - <span id="updateCat" class="sumPageInfo"></span></h4>
+                            <h4 class='uf2a-title'>Description</h4>
+                            <h4 id="updateDes" class="sumPageInfo"></h4>
+                        </div>
+                        <img id="updateImg" src="" alt="" />
+                    </div>
                 </div>
             </div>
-            <div class="footer">
-                <button class="footerBtn" onclick="switchPages('uf-2a', 'uf-2')">
-                    Return to options
+            <div class="footer split">
+                <button class="footerBtn leftBtn" id="uf-2aBack" onclick="switchPages('uf-2a', 'uf-2')">
+                    Back
+                </button>
+                <button class="footerBtn rightBtn" id="uf-2aNext" onclick="openPopup('uf-2a');">
+                    Update
                 </button>
             </div>
         </div>
@@ -605,67 +619,44 @@
             </div>
         </div>
 
-        <!--<div class="section uf-4">
+        <div class="section uf-4">
             <div class="title">
                 <h2>Allocate a fault</h2>
             </div>
 
             <div class="sectionArea large">
                 <div class="content">
-
-                    <div class="item1">
-                        <div class="row summaryHeading">
-                            <div><h3>Fault: </h3></div>
-                            <div><p id="uf4-faultno">12345</p></div>
+                    <div class="sumInfo">
+                        <h4>Location Details</h4>
+                        <div class="sumInfo1">
+                            <h4>Carriage</h4>
+                            <h4>Location</h4>
+                            <h4 id="uf4-carriageno" class="sumPageInfo"></h4>
+                            <h4 id="uf4-location" class="sumPageInfo"></h4>
                         </div>
-                    </div>
-
-                    <div class="itemx">
-                        <div class="row">
-                            <div><h3>Category: </h3></div>
-                            <div><p id="uf4-category">seat</p></div>
-
+                        <h4>Additional Information</h4>
+                        <div class="sumInfo2">
+                            <h4 class="uf4-title status">Status - <span id="uf4-status">In Progress</span></h4>
+                            <h4 class="uf4-title">Date - <span id="uf4-datereported" class="sumPageInfo"></span></h4>
+                            <h4 class="uf4-title">
+                                Category - <span id="uf4-category" class="sumPageInfo"></span>
+                            </h4>
+                            <h4 class="uf4-title">Description</h4>
+                            <h4 id="uf4-faultdesc" class="sumPageInfo"></h4>
                         </div>
-                        <div class="row">
-                            <div><h3>Date: </h3></div>
-                            <div id="uf4-datereported">24/03/2019</div>
-                        </div>
-                    </div>
-
-                    <div class="item2">
-                        <div class="row">
-                            <div><h3>Carriage: </h3></div>
-                            <div id="uf4-carriageno">12435</div>
-                        </div>
-                        <div class="row">
-                            <div><h3>Seat: </h3></div>
-                            <div id="uf4-seatno">12</div>
-                        </div>
-                    </div>
-
-                    <div class="item3">
-                        <div class="row">
-                            <h3> Description: </h3>
-                            <div id="uf4-faultdesc">the chair is broke</div>
-                        </div>
-                    </div>
-
-                    <div class="item22">
-                        <img id="uf4-img" src="" alt="no image provided" />
+                        <img id="uf4-img" src="" alt="" />
                     </div>
                 </div>
-                <div>12</div>
-            </div>
-
+                </div>
             <div class="footer split">
-                <button class="footerBtn leftBtn" id="uf-3Back" onclick="switchPages('uf-4', 'uf-3b')">
+                <button class="footerBtn leftBtn" id="uf-4Back" onclick="switchPages('uf-4', 'uf-3b')">
                     Back
                 </button>
-                <button class="footerBtn rightBtn" id="uf-3Next" onclick="allocateFault()">
+                <button class="footerBtn rightBtn" id="uf-4Next" onclick="openPopup('uf-4')">
                     Allocate
                 </button>
             </div>
-        </div>-->
+        </div>
     </div>
 </body>
 

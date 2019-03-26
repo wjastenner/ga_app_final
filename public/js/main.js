@@ -17,6 +17,85 @@ $(function () {
 
     $("#sumDate").empty();
 
+    var x, y;
+    var c = document.getElementById('carriageImage');
+    
+    ctx = c.getContext('2d');
+
+    var img1;
+
+    var imgH;
+    var imgW;
+    //Loading of the home test image - img1
+    function loadImg() {
+        img1 = new Image();
+
+
+        img1.onload = function () {
+            //draw background image
+            ctx.drawImage(img1, 0, 0);
+            //draw a box over the top
+            imgH = img1.height;
+            imgW = img1.width;
+            console.log("image loaded");
+        }
+        img1.src = 'imgs/carriage_toilet.png';
+    }
+
+    function reloadImg() {
+        img1 = new Image();
+        img1.onload = function () {
+            
+
+            //draw background image
+            ctx.drawImage(img1, 0, 0);
+            //draw a box over the top
+            imgH = img1.height;
+            imgW = img1.width;
+            console.log("image loaded");
+            drawSquare();
+        }
+
+
+        img1.src = 'imgs/carriage_toilet.png';
+        
+    }
+
+    function drawSquare() {
+        ctx.fillStyle = "rgba(192,192,192,0.5)";
+        if (x < imgW / 2 && y < imgH / 2) {
+            ctx.fillRect(0, 0, imgW / 2, imgH / 2);
+            addFaultDetails('location', 'A');
+            console.log("A");
+        } else if (x > imgW / 2 && y < imgH / 2) {
+            ctx.fillRect(imgW / 2, 0, imgW / 2, imgH / 2);
+            addFaultDetails('location', 'B');
+            console.log("B");
+        } else if (x < imgW / 2 && y > imgH / 2) {
+            ctx.fillRect(0, imgH / 2, imgW / 2, imgH / 2);
+            addFaultDetails('location', 'C');
+            console.log("C");
+        } else if (x > imgW / 2 && y > imgH / 2) {
+            ctx.fillRect(imgW / 2, imgH / 2, imgW / 2, imgH / 2);
+            addFaultDetails('location', 'D');
+            console.log("D");
+        } else {
+            console.log("error");
+        }
+    }
+
+    loadImg();
+        
+
+    document.getElementById('carriageImage').addEventListener('click', function (event) {
+        ctx.clearRect(0, 0, 200, 1000);
+        var offset = $(this).offset();
+        x = event.pageX - offset.left;
+        y = event.pageY - offset.top;
+        reloadImg();
+    })
+
+    
 });
 
 var ngrokRan = '11417996';
@@ -274,6 +353,9 @@ function getCarriageDetails() {
 
 // method to submit all of the data to the database at the end of the form
 function submitForm() {
+    $('#submitFaultBtn').text("Sending...");
+    $('#submitFaultBtn').addClass("disabled");
+    $('#submitFaultBtn').attr('disabled', 'disabled');
     // method to submit all of the data to the database at the end of the form
     var reportFault = JSON.parse(localStorage.getItem('reportFault'));
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -286,6 +368,9 @@ function submitForm() {
         type: "POST",
         data: json,
         success: function (rt) {
+            $('#submitFaultBtn').text("Submit");
+            $('#submitFaultBtn').removeClass("disabled");
+            $('#submitFaultBtn').removeAttr('disabled');
             console.log(rt);
             console.log("data submitted");
             var returnedData = JSON.parse(rt);
@@ -296,6 +381,9 @@ function submitForm() {
             }
         },
         error: function () {
+            $('#submitFaultBtn').text("Submit");
+            $('#submitFaultBtn').removeClass("disabled");
+            $('#submitFaultBtn').removeAttr('disabled');
             alert("there has been an error contacting the server");
             console.log("data not submitted");
         }
@@ -315,11 +403,38 @@ function getUsersFaults() {
 
             $('#viewUserFaults').empty();
             for (var i = 0; i < userFaults.length; i++) {
-                $('#viewUserFaults').append("<a id='fault" + i + "' class='filters' onclick='viewFaultDetails(" + i + ")'>"
-                    + "<h3>" + userFaults[i].carriageno + " - " + userFaults[i].category + " </h3>"
-                    + "<h4>" + userFaults[i].faultdesc + " </h4>"
-                    + "</a>");
+                //    $('#viewUserFaults').append("<a id='fault" + i + "' class='filters' onclick='viewFaultDetails(" + i + ")'>"
+                //        + "<h3>" + userFaults[i].carriageno + " - " + userFaults[i].category + " </h3>"
+                //        + "<h4>" + userFaults[i].faultdesc + " </h4>"
+                //        + "</a>");
+
+                var statusColour;
+
+                switch (userFaults[i].status) {
+                    case 'R':
+                        userFaults[i].status = "Reported";
+                        statusColour = 'red';
+                        break;
+                    case 'I':
+                        userFaults[i].status = "In Progress";
+                        statusColour = 'yellow';
+                        break;
+                    case 'C':
+                        userFaults[i].status = "Completed";
+                        statusColour = 'green';
+                        break;
+                }
+
+                var str = "<a id='fault" + i + "' class='filters' onclick='viewFaultDetails(" + i + ")'>"
+                    + "<div class='filters-grid'><div class='h3'>" + userFaults[i].carriageno + " - " + userFaults[i].category + " </div>"
+                    + "<div class='h4'>" + userFaults[i].faultdesc + " </div>"
+                    + "<div class='statusBlob " + statusColour + "'></div>"
+                    + "<div class='statusText'>" + userFaults[i].status + "</div></div>"
+                    + "</a>";
+                $('#viewUserFaults').append(str);
             }
+
+
         },
         error: function () {
             console.log("error")
@@ -352,7 +467,7 @@ function getFaultImage(faultNo, i){
             var fault = JSON.parse(rt);
             console.log(fault[0].img);
             var src = fault[0].img;
-            $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='fault image' />");
+            $('#fault' + i).append("<img id='detImg' src='" + src + "' alt='no image found' />");
         },
         error: function () {
             console.log("error");
@@ -372,20 +487,87 @@ function getFaultForAllocation(faultNo) {
         success: function (rt) {
             var fault = JSON.parse(rt);
             fault = fault[0];
+            fault.datereported = fault.datereported.split('T')[0];
             console.log(fault);
-            $('#uf4-faultno').text(fault.faultno);
-            $('#uf4-category').text(fault.category);
-            $('#uf4-datereported').text(fault.datereported);
-            $('#uf4-carriageno').text(fault.carriageno);
-            $('#uf4-seatno').text(fault.seatno);
-            $('#uf4-faultdesc').text(fault.faultdesc);
+            $('#uf4-faultno').html(fault.faultno);
+            $('#uf4-category').html(fault.category.charAt(0).toUpperCase() + fault.category.slice(1));
+            $('#uf4-datereported').html(fault.datereported);
+            $('#uf4-carriageno').html(fault.carriageno);
+            $('#uf4-location').html(fault.location.charAt(0).toUpperCase() + fault.location.slice(1));
+            $('#uf4-faultdesc').html(fault.faultdesc);
             $('#uf4-img').attr('src', fault.img);
+
+            switch (fault.status) {
+                case 'R':
+                    fault.status = "Reported";
+                    break;
+                case 'I':
+                    fault.status = "In Progress";
+                    break;
+                case 'C':
+                    fault.status = "Completed";
+                    break;
+            }
+
+            // create item in storage containing
+            localStorage.setItem('selectedFault', JSON.stringify(fault));
+
+            $('#uf4-status').html(fault.status);
         },
         error: function () {
             console.log("error");
         }
     });
     switchPages('uf-3b', 'uf-4');
+}
+
+
+function getFaultForUpdate(faultNo) {
+    var json = JSON.stringify(faultNo);
+    $.ajax({
+        url: host + "/get_fault",
+        type: "POST",
+        data: json,
+        success: function (rt) {
+            var fault = JSON.parse(rt);
+            fault = fault[0];
+            fault.datereported = fault.datereported.split('T')[0];
+            console.log(fault);
+            //$('#uf4-faultno').html(fault.faultno);
+            $('#updateCat').html(fault.category.charAt(0).toUpperCase() + fault.category.slice(1));
+            $('#updateDate').html(fault.datereported);
+            $('#updateCarNo').html(fault.carriageno);
+            $('#updateLoc').html(fault.location.charAt(0).toUpperCase() + fault.location.slice(1));
+            $('#updateDes').html(fault.faultdesc);
+            $('#updateImg').attr('src', fault.img);
+            // create item in storage containing
+            localStorage.setItem('selectedFault', JSON.stringify(fault));
+            switch (fault.status) {
+                case 'R':
+                    fault.status = "Reported";
+                    $('#updateStatus').html(fault.status);
+                    switchPages('uf-2', 'uf-2a');
+                    break;
+                case 'I':
+                    fault.status = "In Progress";
+                    $('#updateStatus').html(fault.status);
+                    switchPages('uf-2', 'uf-2a');
+                    break;
+                case 'C':
+                    fault.status = "Completed";
+                    openPopup('filters');
+                    break;
+            }
+
+            
+
+            
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
+    
 }
 
 function setFilters() {
@@ -709,6 +891,15 @@ function checkInput(page) {
                 }
             } else if ($('.faultLocator.region.show').length === 1) {
                 // repeat something similar to above but for faults located using region
+                var reportFault = JSON.parse(localStorage.getItem('reportFault'));
+                if (reportFault.location){
+
+                    switchPages('rf-4', 'rf-5');
+                } else {
+                    alert('Please tap on the train to highlight the region of the fault');
+                }
+
+                
             }
 
             setSummaryPage();
@@ -968,12 +1159,27 @@ function sideNav(scenario) {
             sideNavToggle();
             break;
         case 'rf-1':
+            // check login status. if legit switch pages and toggle
+            if (loginStatus !== null) {
+                reset();
+                switchPages('section', 'rf-1');
+                sideNavToggle();
+            }
+            break;
         case 'vf-1':
+            if (loginStatus !== null) {
+                reset();
+                getUsersFaults();
+                switchPages('options', 'vf-1');
+                sideNavToggle();
+            }
+            break;
         case 'uf-1':
             // check login status. if legit switch pages and toggle
             if (loginStatus !== null) {
                 reset();
-                switchPages('section', scenario);
+                switchPages('options', 'uf-1');
+                setFilters();
                 sideNavToggle();
             }
             break;
@@ -1080,9 +1286,10 @@ function carriageFaults() {
             console.log(output.length);
             if (output.length > 0){
                 // if faults exists open popup
-                openPopup('rf-3a');
+                localStorage.setItem('carriageFaults', rt);
+                openPopup('rf-1a');
             } else {
-                getcarriagedetails();
+                getCarriageDetails();
             }
  
         },
@@ -1100,18 +1307,60 @@ function openPopup(page) {
     $('.popup').addClass('footless');
     $('#popupTitle').empty();
     $('#popupDescription').empty();
+    //$('#popupContent').empty();
+    $('#allocFaultRemove').remove();
+    $('.currentFaults').remove();
     $('.popupImg').remove();
     $('#popupFooter').removeClass('split');
     $('#popupLeftBtn').attr('onclick', 'closePopup()');
     $('#popupLeftBtn').text('Close');
 
 
+
     switch (page) {
 
         case 'rf-1a':
+
+            var carFaults = JSON.parse(localStorage.getItem('carriageFaults'));
+
+            $("#popupDescription").after("<div class='currentFaults'></div>");
+
+            var carFaultsHTML = '';
+
+            for (var key in carFaults) {
+
+                var fault = carFaults[key];
+
+                var category = (fault.category).charAt(0).toUpperCase() + (fault.category).slice(1);
+
+                var location;
+
+                if (fault.location !== null) {
+                    var location = (fault.location).charAt(0).toUpperCase() + (fault.location).slice(1);
+                } else {
+                    var location = "No location provided";
+                }
+
+                var description = (fault.faultdesc).charAt(0).toUpperCase() + (fault.faultdesc).slice(1);
+
+                var faultHTML = "<div class='currentFault'><h4>" + category + "</h4><h4>" + location + "</h4><h4>" + description + "</h4></div>";
+
+                carFaultsHTML = carFaultsHTML.concat(faultHTML);
+
+            }
+     
             $('#popupTitle').text('Current Faults');
-            $('#popupDescription').text('Please see the current unresolved faults on your carriage before continuing.');
-            $("#popupDescription").after("");
+            $('#popupDescription').text('Please check that your fault does not already exist in the list below.');
+            $(".currentFaults").append(carFaultsHTML);
+
+            $('#popupFooter').addClass('split');
+            $('#popupLeftBtn').empty().text("Close");
+            $('#popupLeftBtn').attr('onclick', "closePopup()");
+
+            $('#popupRightBtn').empty().text('Continue');
+            $('#popupRightBtn').attr("onclick", "closePopup(); switchPages('rf-1', 'rf-2'); getCarriageDetails();");
+
+
             break;
         case 'rf-1':
             $('#popupTitle').text('Page Guidance');
@@ -1154,9 +1403,39 @@ function openPopup(page) {
                 $('#popupDescription').text('This pages requires you to select the area on the carriage in which the fault was found.');
             }
 
+            break;
 
+        case 'uf-4':
+            $('#popupTitle').text('Page Guidance');
+            $('#popupDescription').text('If you would like to allocate this fault to a member of staff please enter their ID and select continue.');
 
+            $("#popupDescription").after("<div id='allocFaultRemove'><input id='allocateIDInput' type='text' name='staffID' placeholder='Enter staff ID here'maxlength= 6 /></div>");
+            $('#popupFooter').addClass('split');
+            $('#allocateIDInput').val(JSON.parse(localStorage.getItem('userDetails')).userID);
+            $('#popupFooter').addClass('split');
+            $('#popupLeftBtn').empty().text("Close");
+            $('#popupLeftBtn').attr('onclick', "closePopup()");
 
+            $('#popupRightBtn').empty().text('Allocate');
+            $('#popupRightBtn').attr("onclick", "changeFaultStatus()");
+            
+            break;
+        case 'uf-2a':
+            $('#popupTitle').text('Update Fault');
+            $('#popupDescription').text('If you would like to set the status of this job to complete, please select Update, otherwise, press back.');
+
+            $('#popupFooter').addClass('split');
+            $('#popupLeftBtn').empty().text("Back");
+            $('#popupLeftBtn').attr('onclick', "closePopup()");
+
+            $('#popupRightBtn').empty().text('Update');
+            $('#popupRightBtn').attr("onclick", "changeFaultStatus2()");
+            break;
+        case 'filters':
+            $('#popupTitle').text('Fault Complete');
+            $('#popupDescription').text('Fault has already been fixed.');
+            $('#popupLeftBtn').empty().text("Close");
+            $('#popupLeftBtn').attr('onclick', "closePopup()");
             break;
     }
 
@@ -1171,16 +1450,59 @@ function closePopup() {
 
 function changeFaultStatus() {
     var data = new Object();
-    data.faultNo = 4;
-    data.status = 'I';
-    data.staffID = 123456;
+    var fault = JSON.parse(localStorage.getItem('selectedFault'))
+    data.faultNo = fault.faultno;
+
+    if (fault.status = 'R') {
+        data.status = 'I';
+    } else if (fault.status = 'I') {
+        data.status = 'C';
+    }
+
+    data.staffID = $('#allocateIDInput').val();
+
+    console.log(data);
     var json = JSON.stringify(data);
     $.ajax({
         url: host + "/change_fault_status",
         type: "POST",
         data: json,
         success: function (rt) {
-            console.log(rt);
+            closePopup();
+            resetFilters();
+            switchPages('uf-4', 'uf-3b');
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
+}
+
+function changeFaultStatus2() {
+    var data = new Object();
+    var fault = JSON.parse(localStorage.getItem('selectedFault'))
+    data.faultNo = fault.faultno;
+
+    if (fault.status === 'R') {
+        data.status = 'I';
+    } else if (fault.status === 'I') {
+        data.status = 'C';
+    } else {
+        console.log(fault.status);
+    }
+
+    data.staffID = JSON.parse(localStorage.getItem('userDetails')).userID;
+
+    console.log(data);
+    var json = JSON.stringify(data);
+    $.ajax({
+        url: host + "/complete_fault",
+        type: "POST",
+        data: json,
+        success: function (rt) {
+            closePopup();
+            resetFilters();
+            switchPages('uf-4', 'uf-3b');
         },
         error: function () {
             console.log("error");
@@ -1201,23 +1523,30 @@ function getAssignedFaults() {
             $("#assignedFaults").empty();
             for (var key in faults) {
                 var fault = faults[key];
+                var statusColour;
                 switch (fault.status) {
                     case 'R':
                         fault.status = "Reported";
+                        statusColour = 'red';
                         break;
                     case 'I':
                         fault.status = "In Progress";
+                        statusColour = 'yellow';
                         break;
                     case 'C':
                         fault.status = "Completed";
+                        statusColour = 'green';
                         break;
                 }
                 fault.datereported = fault.datereported.split('T')[0];
-                var str = "<a class='filters' id='" + fault.faultno + "' onclick='displayFaultToUpdate(" + fault.faultno + ")'>"
+
+
+
+                var str = "<a class='filters' id='" + fault.faultno + "' onclick='getFaultForUpdate(" + fault.faultno + ")'>"
                     + "<div class='h3'>" + fault.carriageno + " - " + fault.category + " </div>"
                     + "<div class='h4'>" + fault.faultdesc + " </div>"
-                    + "<div class='statusBlob'></div>"
-                    + "<div class='statusText'>Recieved</div>"
+                    + "<div class='statusBlob " + statusColour + "'></div>"
+                    + "<div class='statusText'>" + fault.status + "</div>"
                     + "</a>";
                 $('#assignedFaults').append(str);
                 
@@ -1228,10 +1557,4 @@ function getAssignedFaults() {
             console.log("error");
         }
     });
-}
-
-function displayFaultToUpdate(faultNo){
-
-
-    switchPages('uf-2', 'uf-2a')
 }

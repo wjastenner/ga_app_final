@@ -42,7 +42,7 @@ header {
     width: 25px;
     height: 3px;
     border-radius: 3px;
-    margin: 0 auto 5px auto;
+    margin: 0 auto 5px auto; 
     background: black;
     &:nth-child(1) {
       margin-top: 5px;
@@ -62,7 +62,7 @@ header {
 
 button {
     display: block;
-    width: 100%;
+    width: 100%; 
     border: none;
     border-radius: 5px;
     align-self: center;
@@ -82,92 +82,143 @@ button {
     &:focus {
         outline: none;
     }
+
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
-.popup{
-  height: 0%;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  z-index: 2;
-  background-color: lighten($primary_colour, 10);
-  display: grid;
-  padding: 0px 10px;
-  grid-template-rows: 60px auto 80px;
-  grid-row-gap: 10px;
-  *{
-    margin: 0px;
-  }
-  &.show {
-    height: 100%;
-  }
-
-  .closeBtn{
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 48px;
-    text-decoration: none;
-    color: white;
-  }
-
-  .title{
-    height: calc(100% - 10px);
-    align-self: end;
-    display: flex;
-    align-items: center;
-    color: white;
-  }
-
-  .content{
+.popup {
+    height: 0%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 2;
+    background-color: lighten($primary_colour, 10);
     display: grid;
-    grid-gap: 10px;
-    margin-top: 40px;
-    color: white;
-    overflow: scroll;
-    h3{
-      line-height: 1.5;
-    }
-    img{
-      width: 100%;
-      border-radius: 5px;
-    }
-  }
+    padding: 0px 10px;
+    grid-template-rows: 60px auto 80px;
+    grid-row-gap: 10px;
 
-  .footer{
-    display: grid;
-    height: calc(100% - 10px);
-    align-self: start;
-    .rightBtn{
-      display: none;
+    * {
+        margin: 0px;
     }
-    .footerBtn{
-      font-size: 1.5rem;
-      background-color: white;
-      color: darken($tertiary_colour, 50);
-      border-radius: 5px;
-      height: 100%;
-      width: 100%;
-      align-self: start;
-      &:active {
-        background-color: darken(white, 15s);
-        box-shadow: 0px 0px 2px 2px rgba(black,0.5);
-      }
+
+    &.show {
+        height: 100%;
     }
-    &.split {
-    grid-template-columns: 35% 65%;
-      * {
-        justify-self: left;
-        width: calc(100% - 5px);
-        }
-      .rightBtn{
+
+    .closeBtn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 48px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .title {
+        height: calc(100% - 10px);
+        align-self: end;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    .content {
         display: grid;
-        justify-self: end;
-      }
-      } 
-  }
-  transition: all 1s;
+        grid-gap: 10px;
+        margin-top: 40px;
+        color: white;
+        overflow: scroll;
+
+        h3 {
+            line-height: 1.5;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .currentFaults {
+            background-color: $primary_colour;
+            align-self: flex-end;
+            display: grid;
+            border-radius: 10px;
+            grid-gap: 10px;
+
+            .currentFault {
+                padding: 10px;
+                margin: 0px;
+                background-color: white;
+                border-radius: 5px;
+                color: black;
+                display: block;
+                height: 100px;
+            }
+        }
+    }
+
+    .footer {
+        display: grid;
+        height: calc(100% - 10px);
+        align-self: start;
+
+        .rightBtn {
+            display: none;
+        }
+
+        .footerBtn {
+            font-size: 1.5rem;
+            background-color: white;
+            color: darken($tertiary_colour, 50);
+            border-radius: 5px;
+            height: 100%;
+            width: 100%;
+            align-self: start;
+
+            &:active {
+                background-color: darken(white, 15s);
+                box-shadow: 0px 0px 2px 2px rgba(black,0.5);
+            }
+        }
+
+        &.split {
+            grid-template-columns: 35% 65%;
+
+            * {
+                justify-self: left;
+                width: calc(100% - 5px);
+            }
+
+            .rightBtn {
+                display: grid;
+                justify-self: end;
+            }
+        }
+    }
+
+    input[type=text] {
+        height: 70px;
+        width: calc(100% - 4px);
+        max-width: 500px;
+        background-color: none;
+        color: black;
+        border: $tertiary_colour solid 2px;
+        text-align: center;
+        padding: 5px;
+        font-size: 1rem;
+        border-radius: 5px;
+
+        &:focus {
+            box-shadow: 0px 0px 2px 2px rgba($primary_colour,0.5);
+        }
+    }
+
+    transition: all 1s;
 }
 
 .section {
@@ -255,6 +306,7 @@ button {
         padding: 10px;
         margin-bottom: 10px;
         align-self: flex-end;
+
         .filters {
             display: grid;
             grid-template-columns: 50% 50%;
@@ -262,9 +314,62 @@ button {
         }
     }
 
+    .sumInfo {
+        display: grid;
+        grid-gap: 10px;
+        padding: 10px;
+
+        * {
+            // border: solid 2px black;
+            width: 100%;
+            padding: 5px;
+        }
+
+        .sumInfo1, .sumInfo2 {
+            display: grid;
+            grid-gap: 5px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .sumInfo1 {
+            grid-template-columns: 40% 60%;
+
+            :nth-child(1), :nth-child(2) {
+                font-size: 0.8rem;
+            }
+
+            :nth-child(3), :nth-child(4) {
+                font-size: 1.5rem;
+                color: $primary_colour;
+            }
+        }
+
+        .sumInfo2 {
+            span {
+                color: $primary_colour;
+                font-size: 1.3rem;
+            }
+
+            :nth-child(4) {
+                color: $primary_colour;
+                font-size: 1rem;
+            }
+        }
+
+        img {
+            padding: 0px;
+            box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
+            // display: none;
+            // &.show{
+            //   display: grid;
+            // }
+        }
+    }
+
 }
 
-.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .uf-1, .uf-3a{
+.login, .findID, .options, .rf-1, .rf-2, .rf-3, .rf-4, .rf-5, .rf-6, .uf-1, .uf-3a, .uf-4, .uf-2a{
   .sectionArea{
     .content{
       display: grid;
@@ -461,8 +566,6 @@ button {
             .glyphicon-checked{
               color: rgb(68, 175, 91);
             }
-
-
           }
         }
       }
@@ -526,56 +629,7 @@ button {
   .sectionArea{
     overflow: scroll;
     .content{
-      .sumInfo{
-        
-        display: grid;
-        grid-gap: 10px;
-        padding: 10px;
-        *{
-          // border: solid 2px black;
-          width: 100%;
-          padding: 5px;
-        }
-
-        .sumInfo1,.sumInfo2{
-          display: grid;
-          grid-gap: 5px;
-          background-color: white;
-          border-radius: 5px;
-        }
-
-        .sumInfo1{          
-          grid-template-columns: 40% 60%;
-          :nth-child(1), :nth-child(2){
-            font-size: 0.8rem;
-          }
-          :nth-child(3), :nth-child(4){
-            font-size: 1.5rem;
-            color: $primary_colour;
-          }
-        }
-        .sumInfo2{
-          span{
-            color: $primary_colour;
-            font-size: 1.3rem;
-          }
-          :nth-child(4){
-            color: $primary_colour;
-            font-size: 1rem;
-          }
-        }
-
-        img{
-          padding: 0px;
-          box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
-          // display: none;
-          // &.show{
-          //   display: grid;
-          // }
-        }
-        
-
-      }
+      
     }
   }
 }
@@ -591,55 +645,204 @@ button {
   }
 }
 
+.uf-4 {
+    .sectionArea {
+        .content {
+            .sumInfo2 {
+                .uf4-title {
+                    color: black;
+                }
+
+                #uf4-faultdesc {
+                    color: $primary_colour;
+                }
+            }
+        }
+    }
+}
+
+.uf-2a {
+    .sectionArea {
+        .content {
+            .sumInfo2 {
+                .uf2a-title {
+                    color: black;
+                }
+
+
+
+                #updateDes {
+                    color: $primary_colour;
+                }
+            }
+        }
+    }
+}
+
 .uf-2 {
-
-    .filters {
+    .content {
         display: grid;
-        grid-template-columns: 60% 10% 30%;
-        grid-template-areas: 'h3a blob status' 'h4a blob status';
-        text-align: left;
-        margin: 10px;
-        padding: 10px;
-        border: none;
-        border-color: $tertiary_colour;
-        background-color: $tertiary_colour;
-        border-radius: 5px;
-        color: white;
-        //width: 100%;
-        &:active {
-            background-color: darken($tertiary_colour, 10%);
+        grid-gap: 10px;
+
+        * {
+            padding: 5px;
+            align-self: center;
         }
 
-        #detImg {
-            height: 100%;
-            width: 100%;
-        }
-
-        .h3 {
-            text-align: left;
-            grid-area: h3a;
-        }
-
-        .h4 {
-            text-align: left;
-            grid-area: h4a;
-        }
-
-        .statusBlob {
-            float: right;
-            grid-area: blob;
-            height: 30px;
-            width: 30px;
-            border: solid;
-            border-color: $statusRecieved;
-            background-color: $statusRecieved;
+        .green {
             border-radius: 50%;
+            border-color: green;
+            background-color: green;
         }
 
-        .statusText {
-            grid-area: status;
+        .yellow {
+            border: solid;
+            border-radius: 50%;
+            border-color: yellow;
+            background-color: yellow;
+        }
+
+        .red {
+            border: solid;
+            border-radius: 50%;
+            border-color: $primary_colour;
+            background-color: $primary_colour;
+        }
+
+
+        .filters {
+            display: grid;
+            grid-template-columns: 50% 10% 40%;
+            grid-template-areas: 'h3a blob status' 'h4a blob status';
             text-align: left;
-            //justify-content: center;
+            border: none;
+            border-color: $tertiary_colour;
+            background-color: $tertiary_colour;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            //height: 100%;
+            align-self: end;
+
+            &:active {
+                background-color: darken($tertiary_colour, 10%);
+            }
+
+            #detImg {
+                height: 100%;
+                width: 100%;
+            }
+
+            .h3 {
+                text-align: left;
+                grid-area: h3a;
+            }
+
+            .h4 {
+                text-align: left;
+                grid-area: h4a;
+            }
+
+            .statusBlob {
+                float: right;
+                grid-area: blob;
+                height: 30px;
+                width: 30px;
+            }
+
+            .statusText {
+                grid-area: status;
+                text-align: center;
+                //justify-content: center;
+            }
+        }
+    }
+}
+
+.vf-1 {
+    .content {
+        display: grid;
+        grid-gap: 10px;
+        height: 100%;
+
+
+        * {
+            padding: 5px;
+            align-self: center;
+        }
+
+        .green {
+            border-radius: 50%;
+            border-color: green;
+            background-color: green;
+        }
+
+        .yellow {
+            border: solid;
+            border-radius: 50%;
+            border-color: yellow;
+            background-color: yellow;
+        }
+
+        .red {
+            border: solid;
+            border-radius: 50%;
+            border-color: $primary_colour;
+            background-color: $primary_colour;
+        }     
+       
+
+
+        .filters {
+            align-self: end;
+            text-align: left;
+            border: none;
+            border-color: $tertiary_colour;
+            background-color: $tertiary_colour;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            
+
+            &:active {
+                background-color: darken($tertiary_colour, 10%);
+            }
+
+            #detImg {
+                height: 70%;
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            .filters-grid {
+                display: grid;
+                grid-template-columns: 50% 10% 40%;
+                grid-template-areas: 'h3a blob status' 'h4a blob status';
+
+
+                .h3 {
+                    text-align: left;
+                    grid-area: h3a;
+                }
+
+                .h4 {
+                    text-align: left;
+                    grid-area: h4a;
+                }
+
+                .statusBlob {
+                    float: right;
+                    grid-area: blob;
+                    height: 30px;
+                    width: 30px;
+                }
+
+                .statusText {
+                    grid-area: status;
+                    text-align: center;
+                    //justify-content: center;
+                }
+            }
         }
     }
 }
@@ -686,10 +889,23 @@ button {
 }
 
 .faultLocator {
-  display: none;
-  &.show {
-    display: grid;
-  }
+    display: none;
+
+    &.show {
+        display: grid;
+    }
+
+    &.region {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+
+        .container {
+            img {
+                width: 150px;
+            }
+        }
+    }
 }
 
 
@@ -895,6 +1111,7 @@ h5{
         .setSearchFilters {
             border: solid;
             border-color: black;
+            width: 100%;
         }
 
         button {
