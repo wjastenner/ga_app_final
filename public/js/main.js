@@ -1,13 +1,19 @@
+//function to load features at on html load.
 $(function () {
+	//adds button functionality to cant find id link
     document.getElementById("cantFindID").addEventListener("click", function () {
         switchPages("login", "findID");
     });
+	
+	//adds button functionality to 'add image' button
     document.getElementById("fileChooser").addEventListener("change", setFaultImage, false);
     $('.main,#logo').click(function (e) {
         if (e.target.className !== "sideNav") {
             sideNavToggle('close');
         }
     })
+	
+	//adds listener to text boxes with limited space
     $('#otherCategoryTxt').on("change keyup paste", function () {
         charsRemaining('otherCategoryTxt');
     });
@@ -17,6 +23,7 @@ $(function () {
 
     $("#sumDate").empty();
 
+	//remainder of this function loads and adds functionality to an image of the train for trains without seat numbers.
     var x, y;
     var c = document.getElementById('carriageImage');
     
@@ -26,7 +33,7 @@ $(function () {
 
     var imgH;
     var imgW;
-    //Loading of the home test image - img1
+    //Loads image of train carriage image - img1
     function loadImg() {
         img1 = new Image();
 
@@ -41,7 +48,8 @@ $(function () {
         }
         img1.src = 'imgs/carriage_toilet.png';
     }
-
+	
+	//loads image again and adds rectangle in area selected 
     function reloadImg() {
         img1 = new Image();
         img1.onload = function () {
@@ -98,6 +106,8 @@ $(function () {
     
 });
 
+//variable changes dependent on whether server is being deployed using an ngrok tunnel or not.
+//allows for quick changing of server setup
 var ngrokRan = 'c8ff1b27';
 var ngrok = 'http://' + ngrokRan + '.ngrok.io';
 
@@ -154,10 +164,13 @@ var faultCategories = {
     }
 };
 
+//faults which do not have a location
 var noLocationFaults = ['wifi', 'toilet', 'displayPanel', 'HVAC'];
 
+//faults which do not need a photo taking. 
 var noPhotoFaults = ['wifi', 'HVAC'];
 
+//function controls the fading in and out between pages
 function switchPages(from, to) {
     var classFrom = $("." + from);
     var classTo = $("." + to);
@@ -233,61 +246,7 @@ function checkStaffID() {
     }
 }
 
-function setUserDetails(userID) {
-    var userDetails = new Object();
-    userDetails.userID = userID;
-    localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    var filters = new Object();
-    filters.carriageno = null;
-    filters.category = null;
-    filters.status = null;
-    filters.datereported = null;
-    localStorage.setItem('filters', JSON.stringify(filters));
-}
-
-function setPageElements() {
-
-    // removes any error message shown from previous request.
-    $(".issue").removeClass("show");
-
-    var carDetails = JSON.parse(localStorage.getItem("carDetails"));
-
-    // set page 2 options by iterating through features found in carriage and setting them to show
-
-    // set all fault options to original state by removing hide class
-    $('.faultOption').removeClass('hide');
-
-    // iterate through carDetails object and if the value is of type boolean and it is false add hide class
-    for (var key in carDetails) {
-        if (typeof carDetails[key] === "boolean" && !carDetails[key]) {
-            $("#" + key).addClass('hide');
-        }
-    }
-
-    // set page 2 button height and span depending on number and parity of buttons
-    var hiddenOptions = $('.faultOption.hide').length;
-    var totalOptions = $('.faultOptions').children().length;
-    var options = totalOptions - hiddenOptions;
-    var optionParity = options % 2;
-
-    if (options > 6) {
-        $('.faultOption').css("height", "50px");
-    }
-
-    if (optionParity === 1) {
-        $('#other').css("grid-column", "span 2");
-    }
-
-}
-
-function setLocalStorage() {
-    var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    var reportFault = new Object();
-    reportFault.user = userDetails.userID;
-    reportFault.carriage = $('#carNum').val();
-    localStorage.setItem('reportFault', JSON.stringify(reportFault));
-}
-
+//called by login. logs in based on users name/dob if they forget their id.
 function checkStaffDetails() {
     var staffDetails = new Object();
     staffDetails.fname = $("#fname").val();
@@ -315,6 +274,28 @@ function checkStaffDetails() {
             console.log("error");
         }
     });
+}
+
+//creates variables localy about the user and sets up filters object 
+function setUserDetails(userID) {
+    var userDetails = new Object();
+    userDetails.userID = userID;
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
+    var filters = new Object();
+    filters.carriageno = null;
+    filters.category = null;
+    filters.status = null;
+    filters.datereported = null;
+    localStorage.setItem('filters', JSON.stringify(filters));
+}
+
+//creates object for report fault. 
+function setLocalStorage() {
+    var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    var reportFault = new Object();
+    reportFault.user = userDetails.userID;
+    reportFault.carriage = $('#carNum').val();
+    localStorage.setItem('reportFault', JSON.stringify(reportFault));
 }
 
 //used by rf page 1
@@ -349,6 +330,40 @@ function getCarriageDetails() {
             }
         });
     }
+}
+
+// sets report fault page 2 options by iterating through features found in carriage and setting them to show
+function setPageElements() {
+
+    // removes any error message shown from previous request.
+    $(".issue").removeClass("show");
+
+    var carDetails = JSON.parse(localStorage.getItem("carDetails"));
+
+    // set all fault options to original state by removing hide class
+    $('.faultOption').removeClass('hide');
+
+    // iterate through carDetails object and if the value is of type boolean and it is false add hide class
+    for (var key in carDetails) {
+        if (typeof carDetails[key] === "boolean" && !carDetails[key]) {
+            $("#" + key).addClass('hide');
+        }
+    }
+
+    // set page 2 button height and span depending on number and parity of buttons
+    var hiddenOptions = $('.faultOption.hide').length;
+    var totalOptions = $('.faultOptions').children().length;
+    var options = totalOptions - hiddenOptions;
+    var optionParity = options % 2;
+
+    if (options > 6) {
+        $('.faultOption').css("height", "50px");
+    }
+
+    if (optionParity === 1) {
+        $('#other').css("grid-column", "span 2");
+    }
+
 }
 
 // method to submit all of the data to the database at the end of the form
@@ -395,6 +410,7 @@ function submitForm() {
     // send fault object to server
 }
 
+// querys database for all reports submitted by a particular viewer so they can view their progress. 
 function getUsersFaults() {
     var userDetails = localStorage.getItem('userDetails');
     $.ajax({
@@ -446,6 +462,7 @@ function getUsersFaults() {
     });
 }
 
+//expands display of a articular fault and adds in image returned by getFaultImage method.
 function viewFaultDetails(i) {
     var json = localStorage.getItem('userFaults');
     var userFaults = JSON.parse(json);
@@ -459,6 +476,8 @@ function viewFaultDetails(i) {
     //    switchPages('vf-1', 'vf-2');
 }
 
+//querys database to return image fora particular fault. When originally queried, the database 
+//only returns basic info about a fault to avoid excessive data transfer. Images are only sent when needed to reduce data transfer quantity
 function getFaultImage(faultNo, i){
     //console.log(faultNo);
     var json = JSON.stringify(faultNo);
@@ -478,10 +497,8 @@ function getFaultImage(faultNo, i){
         }
     });
 }
-// gets all faults reported by the user 
-// returns an array of objects with each fault as an object
 
-
+// querys databse for a fault to load into the allocation summary page. 
 function getFaultForAllocation(faultNo) {
     var json = JSON.stringify(faultNo);
     $.ajax({
@@ -535,7 +552,7 @@ function getFaultForAllocation(faultNo) {
     
 }
 
-
+// querys databse for a fault to load into the update summary page.
 function getFaultForUpdate(faultNo) {
     var json = JSON.stringify(faultNo);
     $.ajax({
@@ -584,6 +601,8 @@ function getFaultForUpdate(faultNo) {
     
 }
 
+
+// stores all the filters set on the update fault page into local storage and calls filterFaults()
 function setFilters() {
     loadFaultCount = 0;
     var filters = JSON.parse(localStorage.getItem('filters'));
@@ -602,8 +621,8 @@ function setFilters() {
     localStorage.setItem('filters', JSON.stringify(filters));
     filterFaults(filters);
 }
-// stores all the filters set on the update fault page into local storage and calls filterFaults()
 
+//resets filters in local storage.
 function resetFilters() {
     var filters = JSON.parse(localStorage.getItem('filters'));
     for (var filter in filters) {
@@ -623,6 +642,7 @@ function resetFilters() {
     filtNav();
 }
 
+//gets faults back from the databse based upon the filters stored in local storage. 
 function filterFaults() {
     var filters = JSON.parse(localStorage.getItem('filters'));
     var data = new Object();
@@ -682,6 +702,8 @@ function filterFaults() {
     })
 }
 
+//filt nav and filtNavToggle are a custom collapsable menu for changing filters once faults have been loaded. 
+//this hides the menu allowing for more space to view more filters. 
 function filtNav() {
     var toggle = $('#filtNavBut').val();
     filtNavToggle(toggle);
@@ -714,6 +736,7 @@ function filtNavToggle(toggle) {
     }
 }
 
+//functionality for a custom number pad. 
 function typeNum(num) {
     //get the maximum seat capacity for the carriage from the object in  local storage
     var carriage = JSON.parse(localStorage.getItem('carDetails'));
@@ -1285,6 +1308,7 @@ function changeFontSize() {
 
 }
 
+//sets the caracters remaining for 
 function charsRemaining(from) {
     if (from === 'otherCategoryTxt') {
         var characters = $('#otherCategoryTxt').val().length + 1;
@@ -1304,6 +1328,7 @@ function openFileChooser() {
 }
 
 
+//queries database for all current faults with a particular carriage.
 function carriageFaults() {
 
     var carriageNo = $('#carNum').val();
@@ -1332,10 +1357,9 @@ function carriageFaults() {
     });
 }
 
+// opens page overlayed on top of app to display extra information. 
+// switch case populates it depending on which page calls the popup
 function openPopup(page) {
-
-    console.log(page);
-
     $('.popup').addClass('footless');
     $('#popupTitle').empty();
     $('#popupDescription').empty();
@@ -1346,8 +1370,6 @@ function openPopup(page) {
     $('#popupFooter').removeClass('split');
     $('#popupLeftBtn').attr('onclick', 'closePopup()');
     $('#popupLeftBtn').text('Close');
-
-
 
     switch (page) {
 
@@ -1480,6 +1502,7 @@ function closePopup() {
 }
 
 
+//changes the fault status of a fault and updates database
 function changeFaultStatus() {
     var data = new Object();
     var fault = JSON.parse(localStorage.getItem('selectedFault'))
@@ -1510,6 +1533,7 @@ function changeFaultStatus() {
     });
 }
 
+//attempted to reuse method but could not fix error in time, had to create seperate method for seperate pages. 
 function changeFaultStatus2() {
     var data = new Object();
     var fault = JSON.parse(localStorage.getItem('selectedFault'))
@@ -1542,6 +1566,7 @@ function changeFaultStatus2() {
     });
 }
 
+//querys server/database for faults assigned to a particular user. 
 function getAssignedFaults() {
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     var json = JSON.stringify(userDetails);
